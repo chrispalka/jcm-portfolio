@@ -1,0 +1,56 @@
+{
+  "name": "jcm-portfolio",
+  "version": "1.0.0",
+  "description": "Jim Cooke Media Portfolio",
+  "main": "Index.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "build-dev": "webpack --config webpack.dev.js --watch",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrispalka/jcm-portfolio.git"
+  },
+  "author": "Chris Palka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrispalka/jcm-portfolio/issues"
+  },
+  "homepage": "https://github.com/chrispalka/jcm-portfolio#readme",
+  "dependencies": {
+    "axios": "^1.2.0",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "dotenv-webpack": "^8.0.1",
+    "express": "^4.18.2",
+    "html-webpack-plugin": "^5.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.3",
+    "sequelize": "^6.25.8",
+    "styled-components": "^5.3.6",
+    "webpack-merge": "^5.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.2",
+    "@babel/plugin-transform-runtime": "^7.19.6",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "babel-loader": "^9.1.0",
+    "css-loader": "^6.7.2",
+    "file-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^2.7.0",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "nodemon": "^2.0.20",
+    "sequelize-cli": "^6.5.2",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0"
+  },
+  "resolutions": {
+    "styled-components": "^5"
+  }
+}

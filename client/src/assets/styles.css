@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'AkkuratLight';
+  src: local(''),
+      url('./fonts/Akkurat-light.otf') format('opentype');
+  font-weight: light;
+}
+
+.active-link span {
+color: #3772ff !important;
+}
