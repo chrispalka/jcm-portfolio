@@ -34,32 +34,32 @@ const GridContainer = styled.div`
 
 const videos = [
     {
-        name: 'https://via.placeholder.com/300',
+        name: 'https://via.placeholder.com/640x360',
         title: 'Movie',
     },
 
     {
-        name: 'https://via.placeholder.com/300',
+        name: 'https://via.placeholder.com/640x360',
         title: 'Movie',
     },
 
     {
-        name: 'https://via.placeholder.com/300',
+        name: 'https://via.placeholder.com/640x360',
         title: 'Movie',
     },
 
     {
-        name: 'https://via.placeholder.com/300',
+        name: 'https://via.placeholder.com/640x360',
         title: 'Movie',
     },
 
     {
-        name: 'https://via.placeholder.com/300',
+        name: 'https://via.placeholder.com/640x360',
         title: 'Movie',
     },
 
     {
-        name: 'https://via.placeholder.com/300',
+        name: 'https://via.placeholder.com/640x360',
         title: 'Movie',
     },
 ]

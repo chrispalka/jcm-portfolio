@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { GlobalStyle, Layout, SideBar, SideNav } from '../layout/index';
-const path = require('path');
-
+const Login = lazy(() => import('./Login'));
+const axios = require('axios');
 
 const SectionWrapperInner = styled.div`
   margin-top: 0;
@@ -36,6 +36,17 @@ const NameContainer = styled.div`
 const App = () => {
   const [page, setPage] = useState('');
   const [active, setActive] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    axios('/isLoggedIn')
+      .then((response) => {
+        if (response.data) {
+          setIsLoggedIn(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
   const linkOnClick = (page) => {
     setActive(false);
     setTimeout(() => {
@@ -45,7 +56,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    console.log(path.join(__dirname, 'public'))
     setActive(true);
     setPage('projects');
   }, []);
@@ -55,15 +65,26 @@ const App = () => {
       <NameContainer>
         <span>JIM COOKE</span>
       </NameContainer>
-      <SideBar page={page} active={active} />
-      <Layout>
-        <SideNav linkOnClick={linkOnClick} page={page} />
-        <SectionWrapperMain>
-          <SectionWrapperInner>
-            {/* <IntroSection id="home">Jim Cooke</IntroSection> */}
-          </SectionWrapperInner>
-        </SectionWrapperMain>
-      </Layout>
+      <SideNav linkOnClick={linkOnClick} page={page} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Layout>
+          <SectionWrapperMain>
+            <SectionWrapperInner>
+              <Routes>
+                <Route
+                  path='/login'
+                  element={isLoggedIn ? <Navigate to='/' replace /> : <Login />}
+                />
+                <Route
+                  path='/'
+                  element={<SideBar page={page} active={active} />}
+                />
+              </Routes>
+              {/* <IntroSection id="home">Jim Cooke</IntroSection> */}
+            </SectionWrapperInner>
+          </SectionWrapperMain>
+        </Layout>
+      </Suspense>
     </>
   );
 };
