@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { GlobalStyle, Layout, SideBar, SideNav } from '../layout/index';
 const Login = lazy(() => import('./Login'));
+const Register = lazy(() => import('./Register'));
 const axios = require('axios');
 
 const SectionWrapperInner = styled.div`
@@ -37,6 +38,8 @@ const App = () => {
   const [page, setPage] = useState('');
   const [active, setActive] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentLocation, setLocation] = useState('');
+  const location = useLocation();
 
   useEffect(() => {
     axios('/isLoggedIn')
@@ -56,16 +59,15 @@ const App = () => {
   };
 
   useEffect(() => {
+    setLocation(location);
+    console.log(currentLocation);
     setActive(true);
     setPage('projects');
   }, []);
   return (
     <>
       <GlobalStyle />
-      <NameContainer>
-        <span>JIM COOKE</span>
-      </NameContainer>
-      <SideNav linkOnClick={linkOnClick} page={page} />
+
       <Suspense fallback={<div>Loading...</div>}>
         <Layout>
           <SectionWrapperMain>
@@ -76,8 +78,20 @@ const App = () => {
                   element={isLoggedIn ? <Navigate to='/' replace /> : <Login />}
                 />
                 <Route
+                  path='/register'
+                  element={<Register />}
+                />
+                <Route
                   path='/'
-                  element={<SideBar page={page} active={active} />}
+                  element={
+                    <>
+                      <NameContainer>
+                        <span>JIM COOKE</span>
+                      </NameContainer>
+                      <SideBar page={page} active={active} />
+                      <SideNav linkOnClick={linkOnClick} page={page} />
+                    </>
+                  }
                 />
               </Routes>
               {/* <IntroSection id="home">Jim Cooke</IntroSection> */}

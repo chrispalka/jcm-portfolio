@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Form, Button, Container } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
@@ -16,7 +15,7 @@ const FormContainer = styled(Container)`
   top: 50%;
   transform: translate(-50%, -50%);
   .form-label {
-    color: #fff;
+    color: #cfdbd5;
   }
   button {
     background-color: #3772ff;
@@ -28,26 +27,12 @@ const FormContainer = styled(Container)`
   }
 `;
 
+const StyledForm = styled(Form)``;
+
 const ButtonContainer = styled.div`
   margin-top: 1rem;
 `;
 
-const LinkContainer = styled(Container)`
-  padding: 0;
-  margin-top: 1em;
-  .register {
-    float: right;
-  }
-  a {
-    color: #fff;
-    text-decoration: none;
-    :hover {
-      color: #3772ff;
-    }
-  }
-`;
-
-const StyledForm = styled(Form)``;
 
 const AlertContainer = styled(Container)`
   position: absolute;
@@ -65,7 +50,7 @@ const AlertStyle = styled(Alert)`
   }
 `;
 
-const Login = () => {
+const Register = () => {
   const {
     value: emailValue,
     bind: bindEmailValue,
@@ -77,16 +62,17 @@ const Login = () => {
     reset: resetPasswordValue,
   } = useInput('');
   const [showAlert, setShowAlert] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
     if (emailValue.length === 0 || passwordValue.length === 0) {
       setShowAlert(true);
       setTimeout(() => setShowAlert(false), 2000);
     } else {
       axios
-        .post('login', {
-          email: emailValue.toLowerCase(),
+        .post('/register', {
+          email: emailValue,
           password: passwordValue,
         })
         .then((response) => {
@@ -94,19 +80,20 @@ const Login = () => {
             setShowAlert(true);
             setTimeout(() => setShowAlert(false), 2000);
           } else {
-            window.location = '/';
-            resetEmailValue();
-            resetPasswordValue();
+            setShowSuccessAlert(true);
+            setTimeout(() => setShowSuccessAlert(false), 2000);
+            setTimeout(() => (window.location = '/login'), 2000);
           }
+          resetEmailValue();
+          resetPasswordValue();
         })
         .catch((err) => console.log(err));
     }
   };
-
   return (
     <>
       <FormContainer>
-        <StyledForm onSubmit={handleLogin}>
+        <StyledForm onSubmit={handleRegister}>
           <Form.Group controlId='formBasicEmail'>
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -129,22 +116,21 @@ const Login = () => {
             </Button>
           </ButtonContainer>
         </StyledForm>
-        <LinkContainer>
-          <Link to='/forgotpassword'>Forgot Password?</Link>
-          <Link to='/register' className='register'>
-            Register
-          </Link>
-        </LinkContainer>
-        <AlertContainer>
-          <AlertStyle show={showAlert} variant='danger' transition>
-            <Alert.Heading>
-              <p>Credentials Invalid</p>
-            </Alert.Heading>
-          </AlertStyle>
-        </AlertContainer>
       </FormContainer>
+      <AlertContainer>
+        <AlertStyle show={showAlert} variant='danger' transition>
+          <Alert.Heading>
+            <p>Credentials Invalid</p>
+          </Alert.Heading>
+        </AlertStyle>
+        <AlertStyle show={showSuccessAlert} variant='success' transition>
+          <Alert.Heading>
+            <p>Success! You will now be redirected to the login page</p>
+          </Alert.Heading>
+        </AlertStyle>
+      </AlertContainer>
     </>
   );
 };
 
-export default Login;
+export default Register;

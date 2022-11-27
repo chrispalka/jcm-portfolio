@@ -2,6 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import Projects from './Projects'
 
+const BackgroundPortion = styled.div`
+    height: 100vh;
+    width: 75%;
+    background-color: #222222;
+    position: absolute;
+    right: 0;
+`
+
 const SideBarWrapper = styled.div`
     height: 100vh;
     width: 100%;
@@ -9,13 +17,6 @@ const SideBarWrapper = styled.div`
     position: absolute;
     transition: all 0.5s ease;
     ${(props) => props.active}
-`
-const BackgroundPortion = styled.div`
-    height: 100vh;
-    width: 75%;
-    background-color: #222222;
-    position: absolute;
-    right: 0;
 `
 
 const SidebarInnerWrapper = styled.div`
