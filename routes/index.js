@@ -6,15 +6,14 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
-const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const {
   getUserName,
   addUser,
   updateForgotPassword,
   updateUserPassword,
-  findUserByToken,
-} = require('../models/index');
+  findRegistrationByToken,
+} = require('../models/index.js');
 
 const { isAuthenticated } = require('../modules/auth');
 
@@ -22,19 +21,19 @@ dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const router = Router();
 
-const headers = {"Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Credentials' : true}
+const headers = { "Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Credentials': true }
 
 router.get('/clubMonitor', async (req, res) => {
   axios('https://www.costco.com/callaway-edge-10-piece-golf-club-set%2C-right-handed---stiff-flex.product.100683880.html')
     .then((response) => {
       res.status(200).send('Available')
-        // const $ = cheerio.load(response.data, { xmlMode: false });
-        // const productNode = $("div[class='stock available']")
-        // if (productNode[0] !== undefined) {
-        //   res.status(200).send('Available');
-        // } else {
-        //   res.sendStatus(200);
-        // }
+      // const $ = cheerio.load(response.data, { xmlMode: false });
+      // const productNode = $("div[class='stock available']")
+      // if (productNode[0] !== undefined) {
+      //   res.status(200).send('Available');
+      // } else {
+      //   res.sendStatus(200);
+      // }
     })
     .catch((err) => res.status(404).send('Product Not Found'))
 });
@@ -42,13 +41,13 @@ router.get('/clubMonitorTwo', async (req, res) => {
   axios('https://www.costco.com/.product.1477082.html')
     .then((response) => {
       res.status(200).send('Available')
-        // const $ = cheerio.load(response.data, { xmlMode: false });
-        // const productNode = $("div[class='stock available']")
-        // if (productNode[0] !== undefined) {
-        //   res.status(200).send('Available');
-        // } else {
-        //   res.sendStatus(200);
-        // }
+      // const $ = cheerio.load(response.data, { xmlMode: false });
+      // const productNode = $("div[class='stock available']")
+      // if (productNode[0] !== undefined) {
+      //   res.status(200).send('Available');
+      // } else {
+      //   res.sendStatus(200);
+      // }
     })
     .catch((err) => res.status(404).send('Product Not Found'));
 });
@@ -121,186 +120,37 @@ passport.use(new LocalStrategy(
 router.post('/register', async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await getUserName(email);
-    if (user) {
-      res.send('Failure');
-    } else {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      await addUser(uuidv4(), email, hashedPassword);
-      res.send('Success');
+    if ('') {
+      const user = await getUserName(email);
+      if (user) {
+        res.send('Failure');
+      } else {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await addUser(uuidv4(), email, hashedPassword);
+        res.send('Success');
+      }
     }
   } catch (err) {
     console.log(err);
   }
 });
 
-router.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
+router.get('/logout', async (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      console.log(err)
+      return next(err);
+    }
+    res.redirect('/');
+  });
 });
 
 router.get('/isLoggedIn', async (req, res) => {
   res.json(isAuthenticated(req));
 });
 
-router.post('/saveWebhook', async (req, res) => {
-  if (req.user) {
-    const { email } = req.user[0];
-    const { webhookURL } = req.body;
-    try {
-      const user = await getUserName(email);
-      const webhook = await getWebhook(user.dataValues.id);
-      if (webhook) {
-        await updateWebhook(webhookURL, user.dataValues.id);
-        res.sendStatus(200);
-      } else {
-        await addWebHook(uuidv4(), webhookURL, user.dataValues.id);
-        res.sendStatus(200);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
-});
-
-router.post('/getMonitorWebhook', async (req, res) => {
-  const { user_id } = req.body;
-  try {
-    const webhook = await getWebhook(user_id);
-    res.status(200).json(webhook.dataValues.webhook);
-  } catch (e) {
-    console.log(e);
-  }
-});
-
-router.get('/getWebhook', async (req, res) => {
-  if (req.user) {
-    const { email } = req.user[0];
-    try {
-      const user = await getUserName(email);
-      const webhook = await getWebhook(user.dataValues.id);
-      res.status(200).json(webhook.dataValues.webhook);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-});
-
-router.post('/saveRecent', async (req, res) => {
-  if (req.user) {
-    const { email } = req.user[0];
-    const { siteValue } = req.body;
-    try {
-      const user = await getUserName(email);
-      await addRecent(uuidv4(), siteValue, user.dataValues.id, Date.now());
-      res.sendStatus(200);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-});
-
-router.get('/getRecent', async (req, res) => {
-  if (req.user) {
-    const recentsArray = [];
-    const { email } = req.user[0];
-    try {
-      const user = await getUserName(email);
-      const recents = await getRecent(user.dataValues.id);
-      recents.forEach((recent) => {
-        recentsArray.push(recent.dataValues.recents)
-      })
-      res.status(200).json(recentsArray);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-});
-
-router.post('/addMonitor', async (req, res) => {
-  if (req.user) {
-    const { email } = req.user[0];
-    const { productValue } = req.body;
-    try {
-      const user = await getUserName(email);
-      await addMonitor(uuidv4(), productValue, user.dataValues.id);
-      res.sendStatus(200);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-});
-
-router.get('/getMonitors', async (req, res) => {
-  if (req.user) {
-    const monitorArray = [];
-    const { email } = req.user[0];
-    try {
-      const user = await getUserName(email);
-      const monitors = await getMonitors(user.dataValues.id);
-      monitors.forEach((monitor) => {
-        monitorArray.push({
-          product: monitor.dataValues.product,
-          run: monitor.dataValues.run,
-          id: monitor.dataValues.id,
-        });
-      })
-      res.status(200).json(monitorArray);
-    } catch (e) {
-      console.log(e)
-    }
-  }
-});
-
-router.get('/getAllMonitors', async (req, res) => {
-  const monitorArray = [];
-  try {
-    const monitors = await getAllMonitors();
-    monitors.forEach((monitor) => {
-      monitorArray.push(monitor.dataValues);
-    });
-    res.status(200).json(monitorArray);
-  } catch (e) {
-    console.log(e)
-  }
-});
-
-router.get('/monitorCleanup', async (req, res) => {
-  try {
-    await monitorCleanup();
-    res.sendStatus(200);
-  } catch (e) {
-    console.log(e)
-  }
-});
-
-router.put('/deleteMonitor', async (req, res) => {
-  const { product } = req.body;
-  if (req.user) {
-    try {
-      await deleteMonitor(product);
-      res.sendStatus(200);
-    } catch (e) {
-      console.log(e)
-    }
-  }
-});
-
-router.put('/changeMonitor', async (req, res) => {
-  if (req.user) {
-    const { email } = req.user[0];
-    const { product, run } = req.body;
-    try {
-      const user = await getUserName(email);
-      await changeMonitorState(product, user.dataValues.id, run)
-      res.sendStatus(200)
-    } catch (e) {
-      console.log(e);
-    }
-  }
-});
-
 router.post('/forgotPassword', async (req, res) => {
+  console.log(process.env.EMAIL_ADDRESS, process.env.EMAIL_PASSWORD)
   const { emailValue } = req.body;
   if (!emailValue) {
     res.json('Invalid');
@@ -349,6 +199,20 @@ router.get('/reset', async (req, res) => {
       });
     } else {
       res.json(false);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.get('/newRegistration', async (req, res) => {
+  const { registrationToken } = req.query;
+  try {
+    const registration = await findRegistrationByToken(registrationToken);
+    if (registration) {
+      res.status(200).send('Found');
+    } else {
+      res.status(200).send('Not Found')
     }
   } catch (e) {
     console.log(e);

@@ -27,6 +27,7 @@ const NameContainer = styled.div`
   font-weight: 400;
   font-style: italic;
   font-size: 40px;
+  padding: 10px;
   top: 0;
   left: 0;
   text-transform: uppercase;
@@ -34,12 +35,17 @@ const NameContainer = styled.div`
   z-index: 100;
 `;
 
+const LogoutDiv = styled.div`
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
 const App = () => {
   const [page, setPage] = useState('');
   const [active, setActive] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentLocation, setLocation] = useState('');
-  const location = useLocation();
 
   useEffect(() => {
     axios('/isLoggedIn')
@@ -59,8 +65,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    setLocation(location);
-    console.log(currentLocation);
     setActive(true);
     setPage('projects');
   }, []);
@@ -77,10 +81,8 @@ const App = () => {
                   path='/login'
                   element={isLoggedIn ? <Navigate to='/' replace /> : <Login />}
                 />
-                <Route
-                  path='/register'
-                  element={<Register />}
-                />
+                <Route path='/register/:token' element={<Register />} />
+                <Route path='/register/' element={<Register />} />
                 <Route
                   path='/'
                   element={
@@ -90,6 +92,13 @@ const App = () => {
                       </NameContainer>
                       <SideBar page={page} active={active} />
                       <SideNav linkOnClick={linkOnClick} page={page} />
+                      {isLoggedIn && (
+                        <LogoutDiv>
+                          <a href='/logout' className='nav-link-custom'>
+                            Logout
+                          </a>
+                        </LogoutDiv>
+                      )}
                     </>
                   }
                 />
