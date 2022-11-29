@@ -1,25 +1,26 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const NavContainer = styled.div`
-    height: 100vh;
-    display: flex;
-    overflow: hidden;
-    position: fixed;
-    left: 20%;
-    top: 0;
-    width: 5%;
-    min-width: 5%;
-    border-right: 1px solid #1f1f1f;
-    box-sizing: border-box;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #222222;
-`
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  position: fixed;
+  left: 20%;
+  top: 0;
+  width: 5%;
+  min-width: 5%;
+  border-right: 1px solid #1f1f1f;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #222222;
+`;
 const LinkContainer = styled.div`
-    width: 100%;
-`
+  width: 100%;
+`;
 
 const LinkWrapper = styled.div`
     border-bottom: 1px solid #1f1f1f;
@@ -46,43 +47,52 @@ const LinkWrapper = styled.div`
         color: #fff;
         text-transform: uppercase;
     }
-`
+`;
 
 const navLinks = [
-    {
-        name: 'projects',
-    },
-    {
-        name: 'about',
-    },
-    {
-        name: 'contact',
-    },
-]
+  {
+    name: 'projects',
+  },
+  {
+    name: 'about',
+  },
+  {
+    name: 'contact',
+  },
+];
 
-const SideNav = ({ linkOnClick }) => {
-    const [activeLink, setActiveLink] = useState('projects')
-    const handleActiveLink = (activeLink) => {
-        setActiveLink(activeLink);
-    }
-    return (
-        <NavContainer>
-            {navLinks.map((link, i) => (
-                <LinkWrapper
-                    key={i}
-                    onClick={() => {
-                        linkOnClick(link.name)
-                        handleActiveLink(link.name)
-                    }}
-                    className={activeLink === link.name && 'active-link'}
-                >
-                    <LinkContainer>
-                        <span>{link.name}</span>
-                    </LinkContainer>
-                </LinkWrapper>
-            ))}
-        </NavContainer>
-    )
-}
+const SideNav = ({ linkOnClick, isAdmin }) => {
+  const [activeLink, setActiveLink] = useState('projects');
+  const handleActiveLink = (activeLink) => {
+    setActiveLink(activeLink);
+  };
+  return (
+    <NavContainer>
+      {navLinks.map((link, i) => (
+        <LinkWrapper
+          key={i}
+          onClick={() => {
+            linkOnClick(link.name);
+            handleActiveLink(link.name);
+          }}
+          className={activeLink === link.name && 'active-link'}
+        >
+          <LinkContainer>
+            <span>{link.name}</span>
+          </LinkContainer>
+        </LinkWrapper>
+      ))}
+      {isAdmin && (
+        <LinkWrapper>
+          <LinkContainer>
+          <span>
+            ADMIN
+            </span>
+            </LinkContainer>
+        </LinkWrapper>
+      )}
+    </NavContainer>
+  );
+};
 
-export default SideNav
+export default SideNav;

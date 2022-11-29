@@ -9,6 +9,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const nodemailer = require('nodemailer');
 const {
   getUserName,
+  getIsAdmin,
   addUser,
   updateForgotPassword,
   updateUserPassword,
@@ -117,18 +118,32 @@ passport.use(new LocalStrategy(
   },
 ));
 
+router.get('/isAdmin', async (req, res) => {
+  if (req.user) {
+    const { email } = req.user[0]
+    try {
+      const isAdmin = await getIsAdmin(email);
+      if (isAdmin) {
+        res.send(true)
+      } else {
+        res.send(false)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+})
+
 router.post('/register', async (req, res) => {
   const { email, password } = req.body;
   try {
-    if ('') {
-      const user = await getUserName(email);
-      if (user) {
-        res.send('Failure');
-      } else {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await addUser(uuidv4(), email, hashedPassword);
-        res.send('Success');
-      }
+    const user = await getUserName(email);
+    if (user) {
+      res.send('Failure');
+    } else {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      await addUser(uuidv4(), email, hashedPassword);
+      res.send('Success');
     }
   } catch (err) {
     console.log(err);

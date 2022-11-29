@@ -37,6 +37,14 @@ db.Sequelize = Sequelize;
 
 module.exports = {
   db,
+  getIsAdmin: (email) => db.User.findOne({
+    where: { email }
+  }).then((response) => {
+    if (response.admin) {
+      return response
+    }
+  })
+    .catch((err) => console.log(err)),
   getUserName: (email) => db.User.findOne({
     where: { email },
   }).then((response) => (response === null ? false : response))
@@ -68,3 +76,18 @@ module.exports = {
     }).then((response) => response)
     .catch((err) => console.log(err))
 };
+
+
+// monitorCleanup: () => db.Monitor.findAll({ raw: true }, {
+// }).then((response) => {
+//   response.forEach((monitor) => {
+//     if (Date.now() - monitor.createdAt > 2592000000) {
+//       db.Monitor.destroy({
+//         where: {
+//           id: monitor.id
+//         }
+//       })
+//     }
+//   })
+// })
+//   .catch((err) => console.log(err)),

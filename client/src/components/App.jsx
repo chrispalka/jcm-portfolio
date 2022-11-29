@@ -46,12 +46,22 @@ const App = () => {
   const [page, setPage] = useState('');
   const [active, setActive] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     axios('/isLoggedIn')
       .then((response) => {
         if (response.data) {
           setIsLoggedIn(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  useEffect(() => {
+    axios('/isAdmin')
+      .then((response) => {
+        if (response.data) {
+          setIsAdmin(true);
         }
       })
       .catch((err) => console.log(err));
@@ -91,7 +101,7 @@ const App = () => {
                         <span>JIM COOKE</span>
                       </NameContainer>
                       <SideBar page={page} active={active} />
-                      <SideNav linkOnClick={linkOnClick} page={page} />
+                      <SideNav linkOnClick={linkOnClick} page={page} isAdmin={isAdmin} />
                       {isLoggedIn && (
                         <LogoutDiv>
                           <a href='/logout' className='nav-link-custom'>
