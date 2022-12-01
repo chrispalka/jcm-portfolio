@@ -2,6 +2,7 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common');
 const DIST_DIR = path.join(__dirname, 'public');
+const Dotenv = require('dotenv-webpack');
 
 
 module.exports = merge(common, {
@@ -12,4 +13,7 @@ module.exports = merge(common, {
     publicPath: '/',
   },
   devtool: "inline-source-map",
+  plugins: [
+    new Dotenv()
+  ],
 });

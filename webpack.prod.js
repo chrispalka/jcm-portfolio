@@ -17,5 +17,5 @@ module.exports = merge(common, {
       NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       DOMAIN: JSON.stringify(process.env.DOMAIN)
     })
-  ],
+  ]
 });
