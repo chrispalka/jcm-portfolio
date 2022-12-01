@@ -9,6 +9,14 @@ module.exports = {
     "dialect": "postgres",
     "logging": false
   },
+  "test": {
+    "username": process.env.PGUSERDEV,
+    "password": null,
+    "database": process.env.PGDATABASEDEV,
+    "host": process.env.PGHOSTDEV,
+    "dialect": "postgres",
+    "logging": false
+  },
   "production": {
     "username": process.env.PGUSER,
     "password": process.env.PGPASSWORD,
