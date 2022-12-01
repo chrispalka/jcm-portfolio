@@ -1,6 +1,7 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common');
+const webpack = require('webpack');
 const DIST_DIR = path.join(__dirname, 'public');
 
 
@@ -11,4 +12,10 @@ module.exports = merge(common, {
     path: DIST_DIR,
     publicPath: '/',
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      DOMAIN: JSON.stringify(process.env.DOMAIN)
+    })
+  ],
 });
