@@ -49,8 +49,8 @@ module.exports = {
     where: { email },
   }).then((response) => (response === null ? false : response))
     .catch((err) => console.log(err)),
-  findRegistrationByToken: (registrationToken) => db.Registration.findOne({
-    where: { registrationToken },
+  findRegistrationByToken: (registrationtoken) => db.Registration.findOne({
+    where: { registrationtoken },
   }).then((response) => response)
     .catch((err) => console.log(err)),
   addUser: (id, email, password) => db.User.create({
@@ -65,6 +65,10 @@ module.exports = {
         id,
       },
     }).then((response) => response)
+    .catch((err) => console.log(err)),
+  generateNewRegistrationToken: (registrationtoken, createdAt, updatedAt) => db.Registration.create({
+    registrationtoken, createdAt, updatedAt
+  }).then((response) => response)
     .catch((err) => console.log(err)),
   updateUserPassword: (email, password) => db.User.update({
     password,

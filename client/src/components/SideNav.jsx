@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const NavContainer = styled.div`
@@ -60,9 +59,9 @@ const navLinks = [
     name: 'contact',
   },
 ];
-
 const SideNav = ({ linkOnClick, isAdmin }) => {
   const [activeLink, setActiveLink] = useState('projects');
+
   const handleActiveLink = (activeLink) => {
     setActiveLink(activeLink);
   };
@@ -83,12 +82,16 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
         </LinkWrapper>
       ))}
       {isAdmin && (
-        <LinkWrapper>
+        <LinkWrapper
+          onClick={() => {
+            linkOnClick('admin');
+            handleActiveLink('admin');
+          }}
+          className={activeLink === 'admin' && 'active-link'}
+        >
           <LinkContainer>
-          <span>
-            ADMIN
-            </span>
-            </LinkContainer>
+            <span>ADMIN</span>
+          </LinkContainer>
         </LinkWrapper>
       )}
     </NavContainer>

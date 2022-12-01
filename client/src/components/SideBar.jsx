@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Projects from './Projects'
+import { Projects, Admin } from '../layout/index'
 
 const BackgroundPortion = styled.div`
     height: 100vh;
@@ -48,7 +48,7 @@ const ContactSection = styled.section`
     align-items: center;
 `
 
-const SideBar = ({ page, active }) => (
+const SideBar = ({ page, active, isAdmin }) => (
     <BackgroundPortion>
         <SideBarWrapper active={active ? 'right: 0;' : 'right: -100%;'}>
             <SidebarInnerWrapper>
@@ -64,6 +64,7 @@ const SideBar = ({ page, active }) => (
                     </AboutSection>
                 )}
                 {page === 'projects' && <Projects />}
+                {page === 'admin' && <Admin isAdmin={isAdmin} />}
                 {page === 'contact' && <ContactSection>Contact</ContactSection>}
             </SidebarInnerWrapper>
         </SideBarWrapper>

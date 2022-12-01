@@ -1,7 +1,8 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { GlobalStyle, Layout, SideBar, SideNav } from '../layout/index';
+import { GlobalStyle, Layout, SideBar, SideNav} from '../layout/index';
+
 const Login = lazy(() => import('./Login'));
 const Register = lazy(() => import('./Register'));
 const axios = require('axios');
@@ -100,7 +101,7 @@ const App = () => {
                       <NameContainer>
                         <span>JIM COOKE</span>
                       </NameContainer>
-                      <SideBar page={page} active={active} />
+                      <SideBar page={page} active={active} isAdmin={isAdmin} />
                       <SideNav linkOnClick={linkOnClick} page={page} isAdmin={isAdmin} />
                       {isLoggedIn && (
                         <LogoutDiv>

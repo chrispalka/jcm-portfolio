@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const passport = require('passport');
 const path = require('path');
+const crypto = require('crypto')
 const { v4: uuidv4 } = require('uuid');
-const axios = require('axios');
 const dotenv = require('dotenv');
 const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
@@ -14,6 +14,7 @@ const {
   updateForgotPassword,
   updateUserPassword,
   findRegistrationByToken,
+  generateNewRegistrationToken
 } = require('../models/index.js');
 
 const { isAuthenticated } = require('../modules/auth');
@@ -22,63 +23,7 @@ dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const router = Router();
 
-const headers = { "Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Credentials': true }
-
-router.get('/clubMonitor', async (req, res) => {
-  axios('https://www.costco.com/callaway-edge-10-piece-golf-club-set%2C-right-handed---stiff-flex.product.100683880.html')
-    .then((response) => {
-      res.status(200).send('Available')
-      // const $ = cheerio.load(response.data, { xmlMode: false });
-      // const productNode = $("div[class='stock available']")
-      // if (productNode[0] !== undefined) {
-      //   res.status(200).send('Available');
-      // } else {
-      //   res.sendStatus(200);
-      // }
-    })
-    .catch((err) => res.status(404).send('Product Not Found'))
-});
-router.get('/clubMonitorTwo', async (req, res) => {
-  axios('https://www.costco.com/.product.1477082.html')
-    .then((response) => {
-      res.status(200).send('Available')
-      // const $ = cheerio.load(response.data, { xmlMode: false });
-      // const productNode = $("div[class='stock available']")
-      // if (productNode[0] !== undefined) {
-      //   res.status(200).send('Available');
-      // } else {
-      //   res.sendStatus(200);
-      // }
-    })
-    .catch((err) => res.status(404).send('Product Not Found'));
-});
-router.get('/gunMonitor', async (req, res) => {
-  axios('https://www.georgiagunstore.com/glock-45-9mm-mos-17rd-blk-reb.html')
-    .then((response) => {
-      const $ = cheerio.load(response.data, { xmlMode: false });
-      const productNode = $("div[class='stock available']")
-      if (productNode[0] !== undefined) {
-        res.status(200).send('Available');
-      } else {
-        res.sendStatus(200);
-      }
-    })
-    .catch((err) => console.log(err));
-});
-
-router.get('/gunMonitorTwo', async (req, res) => {
-  axios('https://www.georgiagunstore.com/glock-19-gen5-9mm-15rd-3-mags-mos-fs.html')
-    .then((response) => {
-      const $ = cheerio.load(response.data, { xmlMode: false });
-      const productNode = $("div[class='stock available']")
-      if (productNode[0] !== undefined) {
-        res.status(200).send('Available');
-      } else {
-        res.sendStatus(200);
-      }
-    })
-    .catch((err) => console.log(err));
-});
+// const headers = { "Access-Control-Allow-Origin": "*", 'Access-Control-Allow-Credentials': true }
 
 router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
@@ -220,7 +165,7 @@ router.get('/reset', async (req, res) => {
   }
 });
 
-router.get('/newRegistration', async (req, res) => {
+router.get('/confirmNewRegistrationToken', async (req, res) => {
   const { registrationToken } = req.query;
   try {
     const registration = await findRegistrationByToken(registrationToken);
@@ -233,6 +178,16 @@ router.get('/newRegistration', async (req, res) => {
     console.log(e);
   }
 });
+
+router.get('/newRegistrationToken', async (req, res) => {
+  try {
+    const token = crypto.randomBytes(20).toString('hex');
+    const tokenGen = await generateNewRegistrationToken(token, Date.now(), Date.now())
+    res.status(200).send(token)
+  } catch (e) {
+    console.log(e)
+  }
+})
 
 router.post('/updatePasswordFromEmail', async (req, res) => {
   const { email, password } = req.body;

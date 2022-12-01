@@ -53,17 +53,19 @@ const AlertStyle = styled(Alert)`
 const Register = () => {
   const { token } = useParams();
   const [registrationFound, setRegistrationFound] = useState(false);
-  // useEffect(() => {
-  //   axios('/newRegistration', {
-  //     params: {
-  //       registrationToken: token,
-  //     },
-  //   }).then((response) => {
-  //     if (response.data === 'Found') {
-  //       setRegistrationFound(true);
-  //     }
-  //   });
-  // });
+  useEffect(() => {
+    if (token) {
+      axios('/confirmNewRegistrationToken', {
+        params: {
+          registrationToken: token,
+        },
+      }).then((response) => {
+        if (response.data === 'Found') {
+          setRegistrationFound(true);
+        }
+      });
+    }
+  }, []);
   const {
     value: emailValue,
     bind: bindEmailValue,
@@ -107,7 +109,7 @@ const Register = () => {
   return (
     <>
       <FormContainer>
-        {!registrationFound ? (
+        {registrationFound ? (
           <>
             <StyledForm onSubmit={handleRegister}>
               <Form.Group controlId='formBasicEmail'>
