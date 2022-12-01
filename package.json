@@ -8,8 +8,7 @@
     "start": "node server.js",
     "watch": "nodemon server.js",
     "build-dev": "webpack --config webpack.dev.js --watch",
-    "build": "webpack --config webpack.prod.js",
-    "heroku-postbuild": "echo Skip build on Heroku"
+    "build": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
