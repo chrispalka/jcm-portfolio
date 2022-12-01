@@ -21,7 +21,9 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: 'main.css',
     }),
-    new Dotenv()
+    new Dotenv({
+      path: path.resolve(__dirname, './.env')
+    })
   ],
   module: {
     rules: [
@@ -47,7 +49,7 @@ module.exports = {
       {
         test: [/\.(eot|mp4|ttf|otf|woff|woff2|)$/, /favicon-16x16\.png$/],
         type: 'asset/resource'
-    }
+      }
     ],
   },
   resolve: {
