@@ -19,7 +19,7 @@ const Admin = ({ isAdmin }) => {
   const generateNewRegistrationToken = () => {
     axios('/newRegistrationToken').then((response) => {
       const token = response.data
-      setRegistrationToken(`${process.env.DOMAIN}register/${token}`);
+      setRegistrationToken(`${DOMAIN}register/${token}`);
     });
 
   };
