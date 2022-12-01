@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
 const axios = require('axios');
+const DOMAIN = process.env.DOMAIN || DOMAIN
 
 
 const Container = styled.div`
