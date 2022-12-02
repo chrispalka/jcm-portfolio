@@ -4,7 +4,7 @@ import { Projects, Admin } from '../layout/index'
 
 const BackgroundPortion = styled.div`
     height: 100vh;
-    width: 75%;
+    width: 90%;
     background-color: #222222;
     position: absolute;
     right: 0;
@@ -13,7 +13,7 @@ const BackgroundPortion = styled.div`
 const SideBarWrapper = styled.div`
     height: 100vh;
     width: 100%;
-    background-color: #141414;
+    background-color: #0B0909;
     position: absolute;
     transition: all 0.5s ease;
     ${(props) => props.active}
@@ -27,7 +27,7 @@ const SidebarInnerWrapper = styled.div`
     align-items: center;
     left: 50%;
     height: 100vh;
-    background-color: #141414;
+    background-color: #0B0909;
     transform: translate(-50%, -50%);
 `
 

@@ -23,31 +23,18 @@ const SectionWrapperMain = styled.div`
   justify-content: center;
 `;
 
-const NameContainer = styled.div`
-  font-family: Gotham, arial;
-  font-weight: 400;
-  font-style: italic;
-  font-size: 40px;
-  padding: 10px;
-  top: 0;
-  left: 0;
-  text-transform: uppercase;
-  position: absolute;
-  z-index: 100;
-`;
-
 const LogoutDiv = styled.div`
   padding: 10px;
   position: absolute;
   top: 0;
   right: 0;
   a {
-    color: #fff;
+    color: #D6D6D6;
     font-weight: 700;
     text-transform: uppercase;
     text-decoration: none;
     :hover {
-      color: #3772ff;
+      color: #8C8C8C;
     }
   }
 
@@ -107,9 +94,6 @@ const App = () => {
                   path='/'
                   element={
                     <>
-                      <NameContainer>
-                        <span>JIM COOKE</span>
-                      </NameContainer>
                       <SideBar page={page} active={active} isAdmin={isAdmin} />
                       <SideNav linkOnClick={linkOnClick} page={page} isAdmin={isAdmin} />
                       {isLoggedIn && (

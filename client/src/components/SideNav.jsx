@@ -1,28 +1,65 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import ProfileImg from '../assets/images/jcmprofile.jpeg';
 
 const NavContainer = styled.div`
   height: 100vh;
   display: flex;
   overflow: hidden;
   position: fixed;
-  left: 20%;
+  left: 0%;
   top: 0;
-  width: 5%;
-  min-width: 5%;
+  width: 10%;
+  min-width: 10%;
   border-right: 1px solid #1f1f1f;
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #222222;
+  background-color: #44444c;
 `;
 const LinkContainer = styled.div`
   width: 100%;
 `;
 
+const NameContainer = styled.div`
+  font-family: Gotham, arial;
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 10px;
+  top: 0;
+  position: fixed;
+  text-transform: uppercase;
+  a {
+    color: #d6d6d6;
+    text-decoration: none;
+    :hover {
+      color: #8c8c8c;
+    }
+  }
+`;
+
+const ImageContainer = styled.div`
+  margin-top: 1em;
+  img {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    width: 200px;
+    border-radius: 50%;
+    cursor: pointer;
+    :hover {
+      -webkit-filter: grayscale(0%);
+      filter: grayscale(0%);
+    }
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+  }
+`;
+
 const LinkWrapper = styled.div`
-    border-bottom: 1px solid #1f1f1f;
+    border-bottom: 0.5px solid gray;
     :last-child {
         border: none;
     }
@@ -32,7 +69,7 @@ const LinkWrapper = styled.div`
     cursor: pointer;
     :hover {
         span {
-            color: #3772ff;
+            color: #8C8C8C;
         }
     }
     }
@@ -40,10 +77,10 @@ const LinkWrapper = styled.div`
         -webkit-transition: all ease 0.5s;
         -moz-transition: all ease 0.5s;
         transition: all ease 0.5s;
-        font-size: 0.7vw;
+        font-size: 20px;
         font-weight: 700;
         font-family: Gotham, arial;
-        color: #fff;
+        color: #D6D6D6;
         text-transform: uppercase;
     }
 `;
@@ -67,6 +104,12 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
   };
   return (
     <NavContainer>
+      <NameContainer>
+        <a href={DOMAIN}>JIM COOKE</a>
+        <ImageContainer>
+          <img src={ProfileImg} />
+        </ImageContainer>
+      </NameContainer>
       {navLinks.map((link, i) => (
         <LinkWrapper
           key={i}

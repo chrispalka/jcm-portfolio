@@ -43,7 +43,7 @@ module.exports = {
         ],
       },
       {
-        test: [/\.(eot|mp4|ttf|otf|woff|woff2|)$/, /favicon-16x16\.png$/],
+        test: [/\.(eot|mp4|ttf|otf|woff|woff2|)$/, /.(png|svg|jpg|jpeg|gif)$/],
         type: 'asset/resource'
       }
     ],

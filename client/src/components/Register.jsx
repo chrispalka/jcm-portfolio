@@ -18,7 +18,7 @@ const FormContainer = styled(Container)`
   top: 50%;
   transform: translate(-50%, -50%);
   .form-label {
-    color: #cfdbd5;
+    color: #D6D6D6;
   }
   button {
     background-color: #3772ff;
@@ -36,9 +36,10 @@ const FormWrapper = styled.div`
   background-color: #222222;
   padding: 20px;
   border-radius: 5px;
-  border: 1px solid #fff;
+  border: 1px solid #D6D6D6;
   span {
     display: flex;
+    color: #D6D6D6;
     justify-content: center;
     font-weight: 700;
   }

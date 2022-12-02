@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-color: #141414;
+    background-color: #0B0909;
     font-family: Gotham, arial;
     font-weight: 100;
     color: #fff;
