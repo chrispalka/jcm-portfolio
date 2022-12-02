@@ -42,7 +42,7 @@ const LinkWrapper = styled.div`
         transition: all ease 0.5s;
         font-size: 0.7vw;
         font-weight: 700;
-        font-family: arial;
+        font-family: Gotham, arial;
         color: #fff;
         text-transform: uppercase;
     }

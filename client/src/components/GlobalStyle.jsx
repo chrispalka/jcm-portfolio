@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -10,14 +10,20 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     height: 100vh;
     background-color: #141414;
-    font-family: arial;
+    font-family: Gotham, arial;
     font-weight: 100;
     color: #fff;
     overflow-y: hidden;
+    input {
+      font-family: arial;
+    }
+    div > button {
+      font-family: arial !important;
+    }
   }
   ::-webkit-scrollbar {
     width: 0px;
     background: transparent;
-`
+`;
 
-export default GlobalStyle
+export default GlobalStyle;

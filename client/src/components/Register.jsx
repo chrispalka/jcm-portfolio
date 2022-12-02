@@ -10,8 +10,10 @@ import useInput from '../hooks/useInput';
 const axios = require('axios');
 
 const FormContainer = styled(Container)`
-  width: 15%;
+  width: 100%;
   position: absolute;
+  display: flex;
+  justify-content: center;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -28,7 +30,23 @@ const FormContainer = styled(Container)`
   }
 `;
 
-const StyledForm = styled(Form)``;
+const FormWrapper = styled.div`
+  width: 400px;
+  height: 100%;
+  background-color: #222222;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  span {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+  }
+`;
+
+const StyledForm = styled(Form)`
+  margin-top: 2rem;
+`;
 
 const ButtonContainer = styled.div`
   margin-top: 1rem;
@@ -39,7 +57,10 @@ const AlertContainer = styled(Container)`
   top: 130%;
   transform: translate(-50%, -50%);
   left: 50%;
-  width: 100%;
+  width: 400px;
+  p {
+    margin-top: 1rem;
+  }
 `;
 
 const AlertStyle = styled(Alert)`
@@ -50,7 +71,7 @@ const AlertStyle = styled(Alert)`
   }
 `;
 
-const Register = () => {
+const Register = ({ isAdmin }) => {
   const { token } = useParams();
   const [registrationFound, setRegistrationFound] = useState(false);
   useEffect(() => {
@@ -109,8 +130,9 @@ const Register = () => {
   return (
     <>
       <FormContainer>
-        {registrationFound ? (
-          <>
+        {isAdmin || registrationFound ? (
+          <FormWrapper>
+            <span>REGISTER</span>
             <StyledForm onSubmit={handleRegister}>
               <Form.Group controlId='formBasicEmail'>
                 <Form.Label>Email</Form.Label>
@@ -146,7 +168,7 @@ const Register = () => {
                 </Alert.Heading>
               </AlertStyle>
             </AlertContainer>
-          </>
+          </FormWrapper>
         ) : (
           <h2>Ooops! Not a valid registration link!</h2>
         )}

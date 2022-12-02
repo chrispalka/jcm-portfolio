@@ -24,7 +24,7 @@ const SectionWrapperMain = styled.div`
 `;
 
 const NameContainer = styled.div`
-  font-family: AkkuratLight !important;
+  font-family: Gotham, arial;
   font-weight: 400;
   font-style: italic;
   font-size: 40px;
@@ -41,6 +41,16 @@ const LogoutDiv = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+  a {
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    :hover {
+      color: #3772ff;
+    }
+  }
+
 `;
 
 const App = () => {
@@ -82,7 +92,6 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-
       <Suspense fallback={<div>Loading...</div>}>
         <Layout>
           <SectionWrapperMain>
@@ -92,8 +101,8 @@ const App = () => {
                   path='/login'
                   element={isLoggedIn ? <Navigate to='/' replace /> : <Login />}
                 />
-                <Route path='/register/:token' element={<Register />} />
-                <Route path='/register/' element={<Register />} />
+                <Route path='/register/:token' element={<Register isAdmin={isAdmin} />} />
+                <Route path='/register/' element={<Register isAdmin={isAdmin} />} />
                 <Route
                   path='/'
                   element={

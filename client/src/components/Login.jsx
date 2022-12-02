@@ -10,7 +10,9 @@ import useInput from '../hooks/useInput';
 const axios = require('axios');
 
 const FormContainer = styled(Container)`
-  width: 15%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -28,13 +30,27 @@ const FormContainer = styled(Container)`
   }
 `;
 
+const FormWrapper = styled.div`
+  width: 400px;
+  height: 100%;
+  background-color: #222222;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid #fff;
+  span {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+  }
+`;
+
 const ButtonContainer = styled.div`
   margin-top: 1rem;
 `;
 
 const LinkContainer = styled(Container)`
   padding: 0;
-  margin-top: 1em;
+  margin-top: 2em;
   .register {
     float: right;
   }
@@ -47,14 +63,19 @@ const LinkContainer = styled(Container)`
   }
 `;
 
-const StyledForm = styled(Form)``;
+const StyledForm = styled(Form)`
+  margin-top: 2rem;
+`;
 
 const AlertContainer = styled(Container)`
   position: absolute;
   top: 130%;
   transform: translate(-50%, -50%);
   left: 50%;
-  width: 100%;
+  width: 400px;
+  p {
+    margin-top: 1rem;
+  }
 `;
 
 const AlertStyle = styled(Alert)`
@@ -77,6 +98,7 @@ const Login = () => {
     reset: resetPasswordValue,
   } = useInput('');
   const [showAlert, setShowAlert] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -93,8 +115,11 @@ const Login = () => {
           if (response.data !== 'Success') {
             setShowAlert(true);
             setTimeout(() => setShowAlert(false), 2000);
+            resetPasswordValue();
           } else {
-            window.location = '/';
+            setShowSuccessAlert(true);
+            setTimeout(() => setShowSuccessAlert(false), 2000);
+            setTimeout(() => (window.location = '/login'), 2000);
             resetEmailValue();
             resetPasswordValue();
           }
@@ -104,8 +129,9 @@ const Login = () => {
   };
 
   return (
-    <>
-      <FormContainer>
+    <FormContainer>
+      <FormWrapper>
+        <span>LOGIN</span>
         <StyledForm onSubmit={handleLogin}>
           <Form.Group controlId='formBasicEmail'>
             <Form.Label>Email</Form.Label>
@@ -135,15 +161,20 @@ const Login = () => {
             Register
           </Link>
         </LinkContainer>
-        <AlertContainer>
-          <AlertStyle show={showAlert} variant='danger' transition>
-            <Alert.Heading>
-              <p>Credentials Invalid</p>
-            </Alert.Heading>
-          </AlertStyle>
-        </AlertContainer>
-      </FormContainer>
-    </>
+      </FormWrapper>
+      <AlertContainer>
+        <AlertStyle show={showAlert} variant='danger' transition>
+          <Alert.Heading>
+            <p>Credentials Invalid</p>
+          </Alert.Heading>
+        </AlertStyle>
+        <AlertStyle show={showSuccessAlert} variant='success' transition>
+          <Alert.Heading>
+            <p>Success! You will now be redirected</p>
+          </Alert.Heading>
+        </AlertStyle>
+      </AlertContainer>
+    </FormContainer>
   );
 };
 
