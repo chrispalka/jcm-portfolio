@@ -124,7 +124,7 @@ const LinkWrapper = styled.div`
 
 const DrawerLinksContainer = styled.div`
   width: 100%;
-  height: 23vh;
+  height: auto;
   left: 0;
   position: absolute;
   top: -23%;
@@ -190,7 +190,10 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
       >
         {isMobile && (
           <NavDrawerContainer>
-            <FontAwesomeIcon icon={faBars} onClick={handleDrawerClicked} />
+            <button onClick={handleDrawerClicked}>
+              hi
+            </button>
+            {/* <FontAwesomeIcon icon={faBars} onClick={handleDrawerClicked} /> */}
           </NavDrawerContainer>
         )}
         <NameContainer isDesktop={useMediaQuery('(min-width: 992px)')}>
