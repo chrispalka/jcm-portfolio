@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ProfileImg from '../assets/images/jcmprofile.jpeg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import useMediaQuery from '../hooks/useMediaQuery';
 
 const NavContainer = styled.div`
-  height: 100vh;
   display: flex;
   overflow: hidden;
   position: fixed;
-  left: 0%;
+  left: 0;
   top: 0;
-  width: 10%;
   min-width: 10%;
   border-right: 1px solid #1f1f1f;
   box-sizing: border-box;
@@ -17,6 +18,23 @@ const NavContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #44444c;
+  -webkit-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+
+  ${(props) =>
+    props.isMobile &&
+    `
+ height: 8vh;
+ width: 100vw;
+`};
+
+  ${(props) =>
+    props.isDesktop &&
+    `
+    height: 100vh;
+    width: 10%;
+  `}
 `;
 const LinkContainer = styled.div`
   width: 100%;
@@ -28,9 +46,13 @@ const NameContainer = styled.div`
   font-weight: 700;
   font-size: 20px;
   padding: 10px;
-  top: 0;
   position: fixed;
   text-transform: uppercase;
+  ${(props) =>
+    props.isDesktop &&
+    `
+    top: 0;
+  `};
   a {
     color: #d6d6d6;
     text-decoration: none;
@@ -58,31 +80,59 @@ const ImageContainer = styled.div`
   }
 `;
 
-const LinkWrapper = styled.div`
-    border-bottom: 0.5px solid gray;
-    :last-child {
-        border: none;
-    }
-    text-align: center;
-    padding: 1rem 0;
-    width: 100%;
+const NavDrawerContainer = styled.div`
+  position: absolute;
+  left: 0;
+  color: #d6d6d6;
+  margin-left: 1.2em;
+  .svg-inline--fa {
+    height: 30px;
+    width: 30px;
+  }
+  .svg-inline--fa:hover {
     cursor: pointer;
-    :hover {
-        span {
-            color: #8C8C8C;
-        }
-    }
-    }
+    color: #8c8c8c;
+  }
+`;
+
+const LinkWrapper = styled.div`
+  border-bottom: 0.5px solid gray;
+  :last-child {
+    border: none;
+  }
+
+  text-align: center;
+  padding: 1rem 0;
+  width: 100%;
+  cursor: pointer;
+  :hover {
     span {
-        -webkit-transition: all ease 0.5s;
-        -moz-transition: all ease 0.5s;
-        transition: all ease 0.5s;
-        font-size: 20px;
-        font-weight: 700;
-        font-family: Gotham, arial;
-        color: #D6D6D6;
-        text-transform: uppercase;
+      color: #8c8c8c;
     }
+  }
+  span {
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Gotham, arial;
+    color: #d6d6d6;
+    text-transform: uppercase;
+  }
+`;
+
+const DrawerLinksContainer = styled.div`
+  width: 100%;
+  height: 23vh;
+  left: 0;
+  position: absolute;
+  top: -23%;
+  background-color: #222222;
+  -webkit-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+  ${(props) => props.drawerOpen};
 `;
 
 const navLinks = [
@@ -98,46 +148,92 @@ const navLinks = [
 ];
 const SideNav = ({ linkOnClick, isAdmin }) => {
   const [activeLink, setActiveLink] = useState('projects');
+  const [drawerClicked, setDrawerClicked] = useState(false);
+  const isDesktop = useMediaQuery('(min-width: 992px)');
+  const isMobile = useMediaQuery('(max-width: 640px');
 
   const handleActiveLink = (activeLink) => {
     setActiveLink(activeLink);
+    setDrawerClicked(!drawerClicked);
   };
+
+  const handleDrawerClicked = () => {
+    setDrawerClicked(!drawerClicked);
+  };
+
   return (
-    <NavContainer>
-      <NameContainer>
-        <a href={DOMAIN}>JIM COOKE</a>
-        <ImageContainer>
-          <img src={ProfileImg} />
-        </ImageContainer>
-      </NameContainer>
-      {navLinks.map((link, i) => (
-        <LinkWrapper
-          key={i}
-          onClick={() => {
-            linkOnClick(link.name);
-            handleActiveLink(link.name);
-          }}
-          className={activeLink === link.name && 'active-link'}
+    <>
+      {isMobile & drawerClicked && (
+        <DrawerLinksContainer
+          drawerOpen={drawerClicked ? 'top: 8%;' : 'top: -23%;'}
         >
-          <LinkContainer>
-            <span>{link.name}</span>
-          </LinkContainer>
-        </LinkWrapper>
-      ))}
-      {isAdmin && (
-        <LinkWrapper
-          onClick={() => {
-            linkOnClick('admin');
-            handleActiveLink('admin');
-          }}
-          className={activeLink === 'admin' && 'active-link'}
-        >
-          <LinkContainer>
-            <span>ADMIN</span>
-          </LinkContainer>
-        </LinkWrapper>
+          {navLinks.map((link, i) => (
+            <LinkWrapper
+              key={i}
+              onClick={() => {
+                linkOnClick(link.name);
+                handleActiveLink(link.name);
+              }}
+              className={activeLink === link.name && 'active-link'}
+            >
+              <LinkContainer>
+                <span>{link.name}</span>
+              </LinkContainer>
+            </LinkWrapper>
+          ))}
+        </DrawerLinksContainer>
       )}
-    </NavContainer>
+      <NavContainer
+        isDesktop={useMediaQuery('(min-width: 992px)')}
+        isMobile={useMediaQuery('(max-width: 640px)')}
+        drawerClicked={drawerClicked}
+      >
+        {isMobile && (
+          <NavDrawerContainer>
+            <FontAwesomeIcon icon={faBars} onClick={handleDrawerClicked} />
+          </NavDrawerContainer>
+        )}
+        <NameContainer isDesktop={useMediaQuery('(min-width: 992px)')}>
+          <a href={DOMAIN}>JIM COOKE</a>
+          {isDesktop && (
+            <ImageContainer>
+              <img src={ProfileImg} />
+            </ImageContainer>
+          )}
+        </NameContainer>
+        {isDesktop && (
+          <>
+            {navLinks.map((link, i) => (
+              <LinkWrapper
+                key={i}
+                onClick={() => {
+                  linkOnClick(link.name);
+                  handleActiveLink(link.name);
+                }}
+                className={activeLink === link.name && 'active-link'}
+              >
+                <LinkContainer>
+                  <span>{link.name}</span>
+                </LinkContainer>
+              </LinkWrapper>
+            ))}
+            {isAdmin && (
+              <LinkWrapper
+                onClick={() => {
+                  linkOnClick('admin');
+                  handleActiveLink('admin');
+                }}
+                className={activeLink === 'admin' && 'active-link'}
+              >
+                <LinkContainer>
+                  <span>ADMIN</span>
+                </LinkContainer>
+              </LinkWrapper>
+            )}
+          </>
+        )}
+      </NavContainer>
+    </>
   );
 };
 
