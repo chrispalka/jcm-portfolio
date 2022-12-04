@@ -61,8 +61,8 @@ const ContactSection = styled.section`
 const SideBar = ({ page, active, isAdmin }) => {
   return (
     <BackgroundPortion
-      isMobile={useMediaQuery('(max-width: 640px')}
-      isDesktop={useMediaQuery('(min-width: 992px)')}
+      isDesktop={useMediaQuery('(min-width: 1208px)')}
+      isMobile={useMediaQuery('(max-width: 1208px)')}
     >
       <SideBarWrapper active={active ? 'right: 0;' : 'right: -100%;'}>
         <SidebarInnerWrapper>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ProfileImg from '../assets/images/jcmprofile.jpeg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import useMediaQuery from '../hooks/useMediaQuery';
+import Media from 'react-media';
 
 const NavContainer = styled.div`
   display: flex;
@@ -54,6 +55,7 @@ const NameContainer = styled.div`
     top: 0;
   `};
   a {
+    white-space: nowrap;
     color: #d6d6d6;
     text-decoration: none;
     :hover {
@@ -67,7 +69,7 @@ const ImageContainer = styled.div`
   img {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
-    width: 200px;
+    width: 100%;
     border-radius: 50%;
     cursor: pointer;
     :hover {
@@ -149,8 +151,6 @@ const navLinks = [
 const SideNav = ({ linkOnClick, isAdmin }) => {
   const [activeLink, setActiveLink] = useState('projects');
   const [drawerClicked, setDrawerClicked] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 992px)');
-  const isMobile = useMediaQuery('(max-width: 640px');
 
   const handleActiveLink = (activeLink) => {
     setActiveLink(activeLink);
@@ -163,49 +163,12 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
 
   return (
     <>
-      {isMobile & drawerClicked && (
-        <DrawerLinksContainer
-          drawerOpen={drawerClicked ? 'top: 8%;' : 'top: -23%;'}
-        >
-          {navLinks.map((link, i) => (
-            <LinkWrapper
-              key={i}
-              onClick={() => {
-                linkOnClick(link.name);
-                handleActiveLink(link.name);
-              }}
-              className={activeLink === link.name && 'active-link'}
-            >
-              <LinkContainer>
-                <span>{link.name}</span>
-              </LinkContainer>
-            </LinkWrapper>
-          ))}
-        </DrawerLinksContainer>
-      )}
-      <NavContainer
-        isDesktop={useMediaQuery('(min-width: 992px)')}
-        isMobile={useMediaQuery('(max-width: 640px)')}
-        drawerClicked={drawerClicked}
-      >
-        {isMobile && (
-          <NavDrawerContainer>
-            <button onClick={handleDrawerClicked}>
-              hi
-            </button>
-            {/* <FontAwesomeIcon icon={faBars} onClick={handleDrawerClicked} /> */}
-          </NavDrawerContainer>
-        )}
-        <NameContainer isDesktop={useMediaQuery('(min-width: 992px)')}>
-          <a href={DOMAIN}>JIM COOKE</a>
-          {isDesktop && (
-            <ImageContainer>
-              <img src={ProfileImg} />
-            </ImageContainer>
-          )}
-        </NameContainer>
-        {isDesktop && (
-          <>
+      <Media
+        query='(max-width: 1208px)'
+        render={() => (
+          <DrawerLinksContainer
+            drawerOpen={drawerClicked ? 'top: 8%;' : 'top: -23%;'}
+          >
             {navLinks.map((link, i) => (
               <LinkWrapper
                 key={i}
@@ -233,8 +196,68 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
                 </LinkContainer>
               </LinkWrapper>
             )}
-          </>
+          </DrawerLinksContainer>
         )}
+      />
+      <NavContainer
+        isDesktop={useMediaQuery('(min-width: 1208px)')}
+        isMobile={useMediaQuery('(max-width: 1208px)')}
+        drawerClicked={drawerClicked}
+      >
+        <Media
+          query='(max-width: 1208px)'
+          render={() => (
+            <NavDrawerContainer>
+              <FontAwesomeIcon icon={faBars} onClick={handleDrawerClicked} />
+            </NavDrawerContainer>
+          )}
+        />
+
+        <NameContainer isDesktop={useMediaQuery('(min-width: 1208px)')}>
+          <a href={DOMAIN}>JIM COOKE</a>
+          <Media
+            query='(min-width: 1208px)'
+            render={() => (
+              <ImageContainer>
+                <img src={ProfileImg} />
+              </ImageContainer>
+            )}
+          />
+        </NameContainer>
+        <Media
+          query='(min-width: 1208px)'
+          render={() => (
+            <>
+              {navLinks.map((link, i) => (
+                <LinkWrapper
+                  key={i}
+                  onClick={() => {
+                    linkOnClick(link.name);
+                    handleActiveLink(link.name);
+                  }}
+                  className={activeLink === link.name && 'active-link'}
+                >
+                  <LinkContainer>
+                    <span>{link.name}</span>
+                  </LinkContainer>
+                </LinkWrapper>
+              ))}
+              {isAdmin && (
+                <LinkWrapper
+                  onClick={() => {
+                    linkOnClick('admin');
+                    handleActiveLink('admin');
+                  }}
+                  className={activeLink === 'admin' && 'active-link'}
+                >
+                  <LinkContainer>
+                    <span>ADMIN</span>
+                  </LinkContainer>
+                </LinkWrapper>
+              )}
+            </>
+          )}
+        />
       </NavContainer>
     </>
   );
