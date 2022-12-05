@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import ProfileImg from '../assets/images/jcmprofile.jpeg';
+import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import useMediaQuery from '../hooks/useMediaQuery';
 import Media from 'react-media';
 
@@ -84,6 +85,7 @@ const ImageContainer = styled.div`
 
 const NavDrawerContainer = styled.div`
   position: absolute;
+  z-index: 100;
   left: 0;
   color: #d6d6d6;
   margin-left: 1.2em;
@@ -95,6 +97,14 @@ const NavDrawerContainer = styled.div`
     cursor: pointer;
     color: #8c8c8c;
   }
+  ${(props) =>
+    props.drawerClicked &&
+    `
+    .svg-inline--fa {
+      transform: rotate(135deg);
+    }
+  `}
+  transition: all 2.5s ease;
 `;
 
 const LinkWrapper = styled.div`
@@ -133,7 +143,7 @@ const DrawerLinksContainer = styled.div`
   background-color: #222222;
   -webkit-transition: all ease 0.5s;
   -moz-transition: all ease 0.5s;
-  transition: all ease 0.5s;
+  transition: all ease 0.3s;
   ${(props) => props.drawerOpen};
 `;
 
@@ -150,7 +160,8 @@ const navLinks = [
 ];
 const SideNav = ({ linkOnClick, isAdmin }) => {
   const [activeLink, setActiveLink] = useState('projects');
-  const [drawerClicked, setDrawerClicked] = useState(false);
+  const dropdownRef = useRef(null);
+  const [drawerClicked, setDrawerClicked] = useDetectOutsideClick(dropdownRef);
 
   const handleActiveLink = (activeLink) => {
     setActiveLink(activeLink);
@@ -167,6 +178,7 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
         query='(max-width: 1208px)'
         render={() => (
           <DrawerLinksContainer
+            ref={dropdownRef}
             drawerOpen={drawerClicked ? 'top: 8%;' : 'top: -23%;'}
           >
             {navLinks.map((link, i) => (
@@ -200,15 +212,19 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
         )}
       />
       <NavContainer
+        id='nav-container'
         isDesktop={useMediaQuery('(min-width: 1208px)')}
         isMobile={useMediaQuery('(max-width: 1208px)')}
-        drawerClicked={drawerClicked}
       >
         <Media
           query='(max-width: 1208px)'
           render={() => (
-            <NavDrawerContainer>
-              <FontAwesomeIcon icon={faBars} onClick={handleDrawerClicked} />
+            <NavDrawerContainer
+              drawerClicked={drawerClicked}
+              id='nav-click'
+              onClick={handleDrawerClicked}
+            >
+              <FontAwesomeIcon icon={faPlus} id='hamburger' />
             </NavDrawerContainer>
           )}
         />
