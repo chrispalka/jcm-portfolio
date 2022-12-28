@@ -1,0 +1,40 @@
+.sectionWrapperMain {
+  height: 100vh;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sectionWrapperInner {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin: auto;
+  height: 100vh;
+  width: 90%;
+}
+
+.logout {
+  padding: 14px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.logout {
+  padding: 14px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.logout a {
+  color: #d6d6d6;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.logout a:hover {
+  color: #8c8c8c;
+}

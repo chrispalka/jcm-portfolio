@@ -7,12 +7,15 @@ const path = require('path');
 const SRC_DIR = path.join(__dirname, 'client/src');
 
 
+
 module.exports = {
+  cache: false,
   entry: `${SRC_DIR}/index.jsx`,
   plugins: [
     new HtmlWebpackPlugin({
       template: './client/index.html',
       filename: 'index.html',
+      cache: false,
       // favicon: './client/src/assets/favicon.ico'
     }),
     new NodePolyfillPlugin(),
@@ -21,6 +24,7 @@ module.exports = {
       chunkFilename: 'main.css',
     })
   ],
+
   module: {
     rules: [
       {
@@ -39,7 +43,7 @@ module.exports = {
         test: /\.css$/,
         use: [{
           loader: MiniCssExtractPlugin.loader,
-        }, 'css-loader'
+        }, 'css-loader',
         ],
       },
       {

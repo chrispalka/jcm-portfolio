@@ -72,7 +72,6 @@ const ImageContainer = styled.div`
     filter: grayscale(100%);
     width: 100%;
     border-radius: 50%;
-    cursor: pointer;
     :hover {
       -webkit-filter: grayscale(0%);
       filter: grayscale(0%);
@@ -139,7 +138,6 @@ const DrawerLinksContainer = styled.div`
   height: auto;
   left: 0;
   position: absolute;
-  top: -23%;
   background-color: #222222;
   -webkit-transition: all ease 0.5s;
   -moz-transition: all ease 0.5s;
@@ -179,7 +177,7 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
         render={() => (
           <DrawerLinksContainer
             ref={dropdownRef}
-            drawerOpen={drawerClicked ? 'top: 8%;' : 'top: -23%;'}
+            drawerOpen={drawerClicked ? 'top: 8%;' : 'top: -53%;'}
           >
             {navLinks.map((link, i) => (
               <LinkWrapper

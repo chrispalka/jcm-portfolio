@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "watch": "nodemon server.js",
+    "dev-server": "nodemon server.js",
+    "watch-dev": "webpack serve --config webpack.dev.js",
     "build-dev": "webpack --config webpack.dev.js --watch",
     "build": "webpack --config webpack.prod.js"
   },
@@ -60,9 +61,11 @@
     "node-polyfill-webpack-plugin": "^2.0.1",
     "nodemon": "^2.0.20",
     "sequelize-cli": "^6.5.2",
+    "style-loader": "^3.3.1",
     "url-loader": "^4.1.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.0",
+    "webpack-dev-server": "^4.11.1",
     "webpack-merge": "^5.8.0"
   },
   "resolutions": {

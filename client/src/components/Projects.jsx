@@ -1,80 +1,99 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
+import useMediaQuery from '../hooks/useMediaQuery';
+
 
 const GridContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 16px;
-    grid-row-gap: 24px;
-    padding: 0 16px;
-    div {
-        cursor: pointer;
-        :hover {
-            div {
-                transition: all 0.8s ease;
-                color: white;
-            }
-        }
-        div {
-            transition: all 0.8s ease;
-            display: flex;
-            justify-content: flex-start;
-            font-size: 12px;
-            color: gray;
-            width: 100%;
-            padding: 15px;
-        }
-    }
-    img {
-        width: 12vw;
-        text-align: center;
-    }
-`
+  max-width: 1300px;
+  margin: 0 auto;
+  height: 100%;
+  display: grid;
+  padding: 100px;
+  gap: 1rem;
+  grid-template-columns: repeat(1, 1fr);
+  .col {
+    border: 2px solid yellow;
+    padding: 2rem;
+    height: 200px;
+    margin: 0 auto;
+    min-width: 350px;
+    position: relative;
+  }
+
+  img {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  ${(props) =>
+    props.isDesktop &&
+    `
+  grid-template-columns: repeat(3, 1fr);
+  max-height: 1000px;
+  .col {
+    height: 250px;
+    width: 450px;
+  }
+  `}
+  ${(props) =>
+    props.isTablet &&
+    `
+  grid-template-columns: repeat(2, 1fr);
+  .col {
+    height: 250px;
+    width: 450px;
+  }
+  `}
+`;
 
 const videos = [
-    {
-        name: 'https://via.placeholder.com/640x360',
-        title: 'Movie',
-    },
+  {
+    name: 'https://via.placeholder.com/450x250',
+    title: 'Movie',
+  },
 
-    {
-        name: 'https://via.placeholder.com/640x360',
-        title: 'Movie',
-    },
+  {
+    name: 'https://via.placeholder.com/450x250',
+    title: 'Movie',
+  },
 
-    {
-        name: 'https://via.placeholder.com/640x360',
-        title: 'Movie',
-    },
+  {
+    name: 'https://via.placeholder.com/450x250',
+    title: 'Movie',
+  },
 
-    {
-        name: 'https://via.placeholder.com/640x360',
-        title: 'Movie',
-    },
+  {
+    name: 'https://via.placeholder.com/450x250',
+    title: 'Movie',
+  },
 
-    {
-        name: 'https://via.placeholder.com/640x360',
-        title: 'Movie',
-    },
+  {
+    name: 'https://via.placeholder.com/450x250',
+    title: 'Movie',
+  },
 
-    {
-        name: 'https://via.placeholder.com/640x360',
-        title: 'Movie',
-    },
-]
+  {
+    name: 'https://via.placeholder.com/450x250',
+    title: 'Movie',
+  },
+];
 
 const Projects = () => (
-    <GridContainer>
-        {videos.map((video, i) => (
-            <div key={i}>
-                <div style={{ paddingLeft: 0 }}>{`${video.title} Ø${
-                    i === 0 ? 'Ø' : i
-                }`}</div>
-                <img src={video.name} key={i} alt=''></img>
-            </div>
-        ))}
-    </GridContainer>
-)
+  <GridContainer
+    isDesktop={useMediaQuery('(min-width: 1208px)')}
+    isTablet={useMediaQuery('(min-width: 600px)')}
+  >
+    {videos.map((video, i) => (
+      <div className='col' key={i}>
+        <img src={video.name} key={i} alt=''></img>
+      </div>
+    ))}
+  </GridContainer>
+);
 
-export default Projects
+export default Projects;

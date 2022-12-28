@@ -1,43 +1,11 @@
 import React, { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
-import { Button, Container } from 'react-bootstrap';
-import styled from 'styled-components';
+import styles from '../assets/Admin.module.css';
+import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboard } from '@fortawesome/free-solid-svg-icons';
 
 const axios = require('axios');
-
-const Wrapper = styled.div``;
-
-const AlertStyle = styled(Alert)`
-  p {
-    font-size: 18px;
-    text-align: center;
-    margin-bottom: 0;
-  }
-`;
-const AlertContainer = styled(Container)`
-  position: absolute;
-  top: 40%;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  width: 400px;
-  p {
-    margin-top: 1rem;
-  }
-`;
-
-const InputContainer = styled(Container)`
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  width: 400px;
-  height: 100%;
-  background-color: #222222;
-  padding: 20px;
-  border-radius: 5px;
-  border: 1px solid #fff;
-`;
 
 const Admin = ({ isAdmin }) => {
   const [registrationToken, setRegistrationToken] = useState('');
@@ -55,16 +23,21 @@ const Admin = ({ isAdmin }) => {
     navigator.clipboard.writeText(link);
   };
   return (
-    <Wrapper>
-      <AlertContainer>
-        <AlertStyle show={showCopiedAlert} variant='success' transition>
+    <div>
+      <div className={styles.alertContainer}>
+        <Alert
+          className={styles.alertStyle}
+          show={showCopiedAlert}
+          variant='success'
+          transition
+        >
           <Alert.Heading>
             <p>Copied!</p>
           </Alert.Heading>
-        </AlertStyle>
-      </AlertContainer>
+        </Alert>
+      </div>
       {isAdmin ? (
-        <InputContainer>
+        <div className={styles.inputContainer}>
           <div
             style={{
               width: '100%',
@@ -95,11 +68,11 @@ const Admin = ({ isAdmin }) => {
               </>
             )}
           </div>
-        </InputContainer>
+        </div>
       ) : (
         <h2>Oops! You dont have access to this page</h2>
       )}
-    </Wrapper>
+    </div>
   );
 };
 

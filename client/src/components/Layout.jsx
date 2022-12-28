@@ -1,15 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
-
-const Wrapper = styled.div`
-    display: flex;
-    align-items: center;
-    height: 100%;
-    justify-content: center;
-`
+import React from 'react';
 
 const Layout = ({ children }) => {
-    return <Wrapper>{children}</Wrapper>
-}
+  return <div className='layoutWrapper'>{children}</div>;
+};
 
-export default Layout
+export default Layout;
