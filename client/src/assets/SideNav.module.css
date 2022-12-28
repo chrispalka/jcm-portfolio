@@ -85,7 +85,7 @@
   cursor: pointer;
 }
 
-.linkWrapper :last-child {
+.linkWrapper:last-child {
   border: none;
 }
 

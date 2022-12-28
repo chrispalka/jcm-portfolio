@@ -88,7 +88,6 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
           render={() => (
             <div
               className={styles.navDrawerContainer}
-              drawerClicked={drawerClicked}
               id='nav-click'
               onClick={handleDrawerClicked}
             >

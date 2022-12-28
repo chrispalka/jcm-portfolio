@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../assets/Sidebar.module.css';
+import styles from '../assets/SideBar.module.css';
 import { Projects, Admin } from '../layout/index';
 
 const SideBar = ({ page, active, isAdmin }) => {
@@ -25,7 +25,9 @@ const SideBar = ({ page, active, isAdmin }) => {
           )}
           {page === 'projects' && <Projects />}
           {page === 'admin' && <Admin isAdmin={isAdmin} />}
-          {page === 'contact' && <div className={styles.contactSection}>Contact</div>}
+          {page === 'contact' && (
+            <div className={styles.contactSection}>Contact</div>
+          )}
         </div>
       </div>
     </div>
