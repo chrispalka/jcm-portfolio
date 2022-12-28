@@ -21,7 +21,7 @@ module.exports = {
     new NodePolyfillPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      chunkFilename: 'main.css',
+      chunkFilename: '[name].main.css',
     })
   ],
 

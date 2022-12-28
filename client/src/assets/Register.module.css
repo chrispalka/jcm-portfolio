@@ -1,0 +1,65 @@
+.formContainer {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.formContainer button {
+  background-color: #3772ff;
+  color: #fff;
+  border: none;
+}
+
+.formContainer div {
+  padding-bottom: 10px;
+}
+
+.formLabel {
+  color: #d6d6d6;
+}
+
+.formWrapper {
+  width: 400px;
+  height: 100%;
+  background-color: #222222;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid #d6d6d6;
+}
+
+.formWrapper span {
+  display: flex;
+  color: #d6d6d6;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.formStyle {
+  margin-top: 2rem;
+}
+
+.buttonContainer {
+  margin-top: 1rem;
+}
+
+.alertContainer {
+  position: absolute;
+  top: 130%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  width: 400px;
+}
+
+.alertContainer p {
+  margin-top: 1rem;
+}
+
+.alertStyle p {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 0;
+}

@@ -2,75 +2,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { Form, Button, Container } from 'react-bootstrap';
+import styles from '../assets/Register.module.css';
+import { Form, Button } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import useInput from '../hooks/useInput';
 
 const axios = require('axios');
-
-const FormContainer = styled(Container)`
-  width: 100%;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  .form-label {
-    color: #D6D6D6;
-  }
-  button {
-    background-color: #3772ff;
-    color: #fff;
-    border: none;
-  }
-  div {
-    padding-bottom: 10px;
-  }
-`;
-
-const FormWrapper = styled.div`
-  width: 400px;
-  height: 100%;
-  background-color: #222222;
-  padding: 20px;
-  border-radius: 5px;
-  border: 1px solid #D6D6D6;
-  span {
-    display: flex;
-    color: #D6D6D6;
-    justify-content: center;
-    font-weight: 700;
-  }
-`;
-
-const StyledForm = styled(Form)`
-  margin-top: 2rem;
-`;
-
-const ButtonContainer = styled.div`
-  margin-top: 1rem;
-`;
-
-const AlertContainer = styled(Container)`
-  position: absolute;
-  top: 130%;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  width: 400px;
-  p {
-    margin-top: 1rem;
-  }
-`;
-
-const AlertStyle = styled(Alert)`
-  p {
-    font-size: 18px;
-    text-align: center;
-    margin-bottom: 0;
-  }
-`;
 
 const Register = ({ isAdmin }) => {
   const { token } = useParams();
@@ -130,13 +67,13 @@ const Register = ({ isAdmin }) => {
   };
   return (
     <>
-      <FormContainer>
+      <div className={styles.formContainer}>
         {isAdmin || registrationFound ? (
-          <FormWrapper>
+          <div className={styles.formWrapper}>
             <span>REGISTER</span>
-            <StyledForm onSubmit={handleRegister}>
+            <Form onSubmit={handleRegister} className={styles.formStyle}>
               <Form.Group controlId='formBasicEmail'>
-                <Form.Label>Email</Form.Label>
+                <Form.Label className={styles.formLabel}>Email</Form.Label>
                 <Form.Control
                   type='email'
                   {...bindEmailValue}
@@ -144,36 +81,46 @@ const Register = ({ isAdmin }) => {
                 />
               </Form.Group>
               <Form.Group controlId='formBasicPassword'>
-                <Form.Label>Password</Form.Label>
+                <Form.Label className={styles.formLabel}>Password</Form.Label>
                 <Form.Control
                   type='password'
                   {...bindPasswordValue}
                   placeholder='Password'
                 />
               </Form.Group>
-              <ButtonContainer>
+              <div className={styles.buttonContainer}>
                 <Button variant='primary' type='submit'>
                   Submit
                 </Button>
-              </ButtonContainer>
-            </StyledForm>
-            <AlertContainer>
-              <AlertStyle show={showAlert} variant='danger' transition>
+              </div>
+            </Form>
+            <div className={styles.alertContainer}>
+              <Alert
+                show={showAlert}
+                variant='danger'
+                transition
+                className={styles.alertStyle}
+              >
                 <Alert.Heading>
                   <p>Credentials Invalid</p>
                 </Alert.Heading>
-              </AlertStyle>
-              <AlertStyle show={showSuccessAlert} variant='success' transition>
+              </Alert>
+              <Alert
+                show={showSuccessAlert}
+                variant='success'
+                transition
+                className={styles.alertStyle}
+              >
                 <Alert.Heading>
                   <p>Success! You will now be redirected to the login page</p>
                 </Alert.Heading>
-              </AlertStyle>
-            </AlertContainer>
-          </FormWrapper>
+              </Alert>
+            </div>
+          </div>
         ) : (
           <h2>Ooops! Not a valid registration link!</h2>
         )}
-      </FormContainer>
+      </div>
     </>
   );
 };
