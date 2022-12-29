@@ -34,7 +34,7 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
       <div
         className={styles.mobile_btn}
         id='nav-click'
-        onClick={toggleMobileNav}
+        onClick={toggleMobileNav} 
       >
         {isMobileNavToggled ? (
           <FontAwesomeIcon icon={faXmark} id='hamburger' />
