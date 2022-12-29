@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../assets/SideBar.module.css';
+// import styles from '../assets/SideBar.module.css';
 import { Projects, Admin } from '../layout/index';
 
 const SideBar = ({ page, active, isAdmin }) => {
