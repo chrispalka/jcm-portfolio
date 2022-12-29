@@ -59,22 +59,9 @@
   filter: grayscale(0%);
 }
 
-.navDrawerContainer {
-  position: absolute;
-  z-index: 100;
-  left: 0;
-  color: #d6d6d6;
-  margin-left: 1.2em;
-  transition: all 2.5s ease;
-}
-
 .svg-inline--fa {
   height: 30px;
   width: 30px;
-}
-
-.drawerClicked .svg-inline--fa {
-  transform: rotate(135deg);
 }
 
 .linkWrapper {
@@ -87,6 +74,11 @@
 
 .linkWrapper:last-child {
   border: none;
+}
+
+.mobile_btn {
+  display: none;
+  z-index: 100;
 }
 
 .linkWrapper span {
@@ -104,30 +96,43 @@
   color: #8c8c8c;
 }
 
-.drawerContainer {
-  width: 100%;
-  height: auto;
-  left: 0;
-  top: -53%;
-  position: absolute;
-  background-color: #222222;
-  -webkit-transition: all ease 0.5s;
-  -moz-transition: all ease 0.5s;
-  transition: all ease 0.3s;
-}
-
-.drawerActive {
-  top: 8%;
-}
-
 .activeLink span {
   color: #8c8c8c !important;
 }
 
 @media screen and (max-width: 720px) {
   .navContainer {
-    height: 8vh;
+    height: 100vh;
+    left: -100%;
     width: 100vw;
+    background-color: #0b0909;
+  }
+  .active {
+    left: 0;
+  }
+  .imageContainer {
+    display: none;
+  }
+  .navDrawerContainer {
+    left: 0;
+  }
+
+  .mobile_btn {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 1rem;
+    cursor: pointer;
+  }
+  .nameContainer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 1rem;
+  }
+  .linkWrapper {
+    border: none;
   }
 }
 
