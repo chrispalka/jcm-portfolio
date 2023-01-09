@@ -2,15 +2,14 @@
   display: flex;
   overflow: hidden;
   position: fixed;
-  left: 0;
+  left: 10%;
   top: 0;
-  min-width: 10%;
   border-right: 1px solid #1f1f1f;
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: #44444c;
+  justify-content: space-between;
+  background-color: #0B0909;
   -webkit-transition: all ease 0.5s;
   -moz-transition: all ease 0.5s;
   transition: all ease 0.5s;
@@ -23,24 +22,27 @@
 .nameContainer {
   font-family: Gotham, arial;
   z-index: 100;
+  display: flex;
+  justify-content: center;
   text-align: center;
   font-weight: 700;
   font-size: 20px;
   padding: 1rem;
-  position: absolute;
-  top: 0;
-  left: 1%;
+  position: relative;
   text-transform: uppercase;
 }
 
 .nameContainer a {
   white-space: nowrap;
-  color: #d6d6d6;
+  color: #8c8c8c;
   text-decoration: none;
+  -webkit-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  transition: all ease 0.5s;
 }
 
 .nameContainer a:hover {
-  color: #8c8c8c;
+  color: #d6d6d6;
 }
 
 .imageContainer {
@@ -93,9 +95,9 @@
   -moz-transition: all ease 0.5s;
   transition: all ease 0.5s;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 100;
   font-family: Gotham, arial;
-  color: #d6d6d6;
+  color: #434242;
   text-transform: uppercase;
 }
 
@@ -104,7 +106,7 @@
 }
 
 .activeLink span {
-  color: #8c8c8c !important;
+  color: #ffffff !important;
 }
 
 @media screen and (max-width: 720px) {

@@ -9,9 +9,10 @@
 .sectionWrapperInner {
   margin-top: 0;
   margin-bottom: 0;
+  display: flex;
   margin: auto;
   height: 100vh;
-  width: 90%;
+  width: 50%;
 }
 
 .logout {
@@ -37,4 +38,85 @@
 
 .logout a:hover {
   color: #8c8c8c;
+}
+
+.contentWrapper {
+  width: 80%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 20%;
+  margin: auto;
+  height: 100vh;
+}
+
+.mainContent {
+  position: relative;
+  height: 700px;
+  width: 1000px;
+}
+
+.borderLeftDiv {
+  position: absolute;
+  height: 400px;
+  width: 400px;
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  pointer-events: none;
+  transition: all ease 1s;
+  -webkit-transition: all ease 1s;
+  -moz-transition: all ease 1s;
+}
+
+.borderRightDiv {
+  position: absolute;
+  height: 400px;
+  width: 400px;
+  top: 0;
+  right: 0;
+  border-right: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  pointer-events: none;
+  transition: all ease 1s;
+  -webkit-transition: all ease 1s;
+  -moz-transition: all ease 1s;
+}
+
+.activeBorderLeftDiv {
+  height: 600px;
+  width: 800px;
+}
+
+.activeBorderRightDiv {
+  height: 600px;
+  width: 800px;
+}
+
+.contactContainer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  left: -5%;
+  height: 200px;
+  width: 50px;
+}
+
+.contactIcons {
+  color: #736d6d;
+  padding: 10px;
+  -webkit-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+}
+
+.contactIcons:hover {
+  color: #ffffff;
+  cursor: pointer;
 }
