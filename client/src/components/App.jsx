@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import styles from '../assets/App.module.css';
-import { Layout, SideBar, SideNav } from '../layout/index';
+import { Layout, Projects, SideNav } from '../layout/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
@@ -48,13 +48,17 @@ const App = () => {
     setPage('projects');
   }, []);
 
-  const handleHover = (isHover) => {
-    if (isHover) {
+  const handleHover = (e, isHover) => {
+    if (
+      isHover &&
+      e.target.id !== 'contact-icons' &&
+      e.target.tagName !== 'svg' &&
+      e.target.tagName !== 'path'
+    ) {
       setIsHover(true);
     } else {
       setIsHover(false);
     }
-    console.log(isHover);
   };
   return (
     <>
@@ -80,32 +84,49 @@ const App = () => {
               </a>
               </div>
             )} */}
-
           <div className={styles.contentWrapper}>
             <div
               className={styles.mainContent}
-              onMouseOverCapture={() => handleHover(true)}
-              onMouseLeave={() => handleHover(false)}
+              onMouseOverCapture={(e) => handleHover(e, true)}
+              onMouseLeave={(e) => handleHover(e, false)}
             >
-              <div className={
-                isHover ?
-                [styles.borderLeftDiv, styles.activeBorderLeftDiv].join(' ') : styles.borderLeftDiv
-                }></div>
-              <div className={
-                isHover ?
-                [styles.borderRightDiv, styles.activeBorderRightDiv].join(' ') : styles.borderRightDiv
-                }></div>
-              <div className={styles.contactContainer}>
-                <FontAwesomeIcon
-                  icon={faEnvelope}
-                  className={styles.contactIcons}
-                  size='lg'
-                />
-                <FontAwesomeIcon
-                  icon={faLinkedinIn}
-                  className={styles.contactIcons}
-                  size='lg'
-                />
+              <Projects />
+              <div
+                className={
+                  isHover
+                    ? [styles.borderLeftDiv, styles.activeBorderLeftDiv].join(
+                        ' '
+                      )
+                    : styles.borderLeftDiv
+                }
+              ></div>
+              <div
+                className={
+                  isHover
+                    ? [styles.borderRightDiv, styles.activeBorderRightDiv].join(
+                        ' '
+                      )
+                    : styles.borderRightDiv
+                }
+              ></div>
+              <div className={styles.contactContainer} id='contact-icons'>
+                <a href='mailto: jimcookemedia@gmail.com'>
+                  <FontAwesomeIcon
+                    icon={faEnvelope}
+                    className={styles.contactIcons}
+                    size='lg'
+                  />
+                </a>
+                <a
+                  href='https://www.linkedin.com/in/jim-cooke-2ba22135/'
+                  target='_blank'
+                >
+                  <FontAwesomeIcon
+                    icon={faLinkedinIn}
+                    className={styles.contactIcons}
+                    size='lg'
+                  />
+                </a>
               </div>
             </div>
           </div>
