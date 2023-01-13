@@ -41,8 +41,7 @@
 }
 
 .contentWrapper {
-  width: 80%;
-  position: fixed;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,31 +58,11 @@
 }
 
 .borderLeftDiv {
-  position: absolute;
-  height: 400px;
-  width: 400px;
-  bottom: 0;
-  left: 0;
-  border-bottom: 1px solid #ffffff;
-  border-left: 1px solid #ffffff;
-  pointer-events: none;
-  transition: all ease 1s;
-  -webkit-transition: all ease 1s;
-  -moz-transition: all ease 1s;
+  border: none;
 }
 
 .borderRightDiv {
-  position: absolute;
-  height: 400px;
-  width: 400px;
-  top: 0;
-  right: 0;
-  border-right: 1px solid #ffffff;
-  border-top: 1px solid #ffffff;
-  pointer-events: none;
-  transition: all ease 1s;
-  -webkit-transition: all ease 1s;
-  -moz-transition: all ease 1s;
+  border: none;
 }
 
 .activeBorderLeftDiv {
@@ -97,15 +76,7 @@
 }
 
 .contactContainer {
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  left: -5%;
-  height: 200px;
-  width: 50px;
+  display: none;
 }
 
 .contactIcons {
@@ -119,4 +90,51 @@
 .contactIcons:hover {
   color: #ffffff;
   cursor: pointer;
+}
+
+@media screen and (min-width: 720px) {
+  .contentWrapper {
+    width: 80%;
+    position: fixed;
+  }
+
+  .contactContainer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    left: -5%;
+    height: 200px;
+    width: 50px;
+  }
+
+  .borderLeftDiv {
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    bottom: 0;
+    left: 0;
+    border-bottom: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    pointer-events: none;
+    transition: all ease 1s;
+    -webkit-transition: all ease 1s;
+    -moz-transition: all ease 1s;
+  }
+
+  .borderRightDiv {
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    top: 0;
+    right: 0;
+    border-right: 1px solid #ffffff;
+    border-top: 1px solid #ffffff;
+    pointer-events: none;
+    transition: all ease 1s;
+    -webkit-transition: all ease 1s;
+    -moz-transition: all ease 1s;
+  }
 }

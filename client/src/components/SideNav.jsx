@@ -3,6 +3,7 @@ import styles from '../assets/SideNav.module.css';
 import ProfileImg from '../assets/images/jcmprofile.jpeg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 
 const navLinks = [
   {
@@ -30,9 +31,9 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
         onClick={toggleMobileNav}
       >
         {isMobileNavToggled ? (
-          <FontAwesomeIcon icon={faXmark} id='hamburger' />
+          <FontAwesomeIcon icon={faXmark} id='hamburger' size='lg' />
         ) : (
-          <FontAwesomeIcon icon={faBars} id='hamburger' />
+          <FontAwesomeIcon icon={faBars} id='hamburger' size='lg' />
         )}
       </div>
       <div
@@ -49,25 +50,42 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
               <img src={ProfileImg} />
             </div>
           </div>
-          <div>
-            {isAdmin && (
-              <div
-                className={
-                  activeLink === 'admin'
-                    ? [styles.linkWrapper, styles.activeLink].join(' ')
-                    : styles.linkWrapper
-                }
-                onClick={() => {
-                  linkOnClick('admin');
-                  handleActiveLink('admin');
-                }}
-              >
-                <div className={styles.linkContainer}>
-                  <span>ADMIN</span>
-                </div>
-              </div>
-            )}
+          <div className={styles.contactContainer} id='contact-icons'>
+            <a href='mailto: jimcookemedia@gmail.com'>
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                className={styles.contactIcons}
+                size='2xl'
+              />
+            </a>
+            <a
+              href='https://www.linkedin.com/in/jim-cooke-2ba22135/'
+              target='_blank'
+            >
+              <FontAwesomeIcon
+                icon={faLinkedinIn}
+                className={styles.contactIcons}
+                size='2xl'
+              />
+            </a>
           </div>
+          {isAdmin && (
+            <div
+              className={
+                activeLink === 'admin'
+                  ? [styles.linkWrapper, styles.activeLink].join(' ')
+                  : styles.linkWrapper
+              }
+              onClick={() => {
+                linkOnClick('admin');
+                handleActiveLink('admin');
+              }}
+            >
+              <div className={styles.linkContainer}>
+                <span>ADMIN</span>
+              </div>
+            </div>
+          )}
         </>
       </div>
     </>

@@ -13,6 +13,7 @@
   margin: 0 auto;
   min-width: 350px;
   position: relative;
+  border: 1px solid yellow;
 }
 
 .gridContainer img {
@@ -26,7 +27,7 @@
   transform: translate(-50%, -50%);
 }
 
-@media screen and (min-width: 1208px) {
+/* @media screen and (min-width: 1208px) {
   .gridContainer {
     grid-template-columns: repeat(3, 1fr);
     max-height: 1000px;
@@ -35,15 +36,13 @@
   .col {
     height: 250px;
   }
-}
+} */
 
 @media screen and (min-width: 720px) {
   .gridContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    /* grid-column-gap: 10px;
-    grid-row-gap: 50px; */
   }
 
   .col {

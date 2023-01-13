@@ -4,12 +4,13 @@
   position: fixed;
   left: 10%;
   top: 0;
+  z-index: 9998;
   border-right: 1px solid #1f1f1f;
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background-color: #0B0909;
+  background-color: #0b0909;
   -webkit-transition: all ease 0.5s;
   -moz-transition: all ease 0.5s;
   transition: all ease 0.5s;
@@ -122,8 +123,27 @@
   .imageContainer {
     display: none;
   }
-  .navDrawerContainer {
-    left: 0;
+  .contactContainer {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    width: 50px;
+  }
+
+  .contactIcons {
+    color: #736d6d;
+    padding: 10px;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+  }
+
+  .contactIcons:hover {
+    color: #ffffff;
+    cursor: pointer;
   }
 
   .mobile_btn {
@@ -131,6 +151,7 @@
     position: absolute;
     right: 0;
     top: 0;
+    z-index: 9999;
     padding: 1rem;
     cursor: pointer;
   }
@@ -149,5 +170,8 @@
   .navContainer {
     height: 100vh;
     width: 10%;
+  }
+  .contactContainer {
+    display: none;
   }
 }
