@@ -14,7 +14,11 @@ const axios = require('axios');
 const App = () => {
   const [page, setPage] = useState('');
   const modalRef = useRef(null);
-  const [selectedVideo, setSelectedVideo] = useState('');
+  const [selectedVideo, setSelectedVideo] = useState({
+    still: '',
+    title: '',
+    description: '',
+  });
   const [showModal, setShowModal] = useDetectOutsideClick(modalRef);
   const [isHover, setIsHover] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -61,12 +65,17 @@ const App = () => {
   };
 
   const handleVideoClick = (cb) => {
-    setSelectedVideo(cb.still);
-    setIsVideoClicked(true);
+    setSelectedVideo({
+      ...selectedVideo,
+      still: cb.still,
+      title: cb.title,
+      description: cb.description,
+    });
     setIsHover(false);
+    setIsVideoClicked(true);
     setTimeout(() => {
       setShowModal(true);
-    }, 1500);
+    }, 900);
   };
   return (
     <>
@@ -95,8 +104,8 @@ const App = () => {
           <div className={styles.contentWrapper}>
             <div
               className={styles.mainContent}
-              onMouseOverCapture={(e) => handleHover(e, true, showModal)}
-              onMouseLeave={(e) => handleHover(e, false, showModal)}
+              onMouseOverCapture={(e) => handleHover(e, true, isVideoClicked)}
+              onMouseLeave={(e) => handleHover(e, false, isVideoClicked)}
             >
               {showModal && <Modal ref={modalRef} video={selectedVideo} />}
               <Projects
@@ -130,6 +139,11 @@ const App = () => {
                     : styles.borderRightDiv
                 }
               ></div>
+              {showModal && (
+                <div className={styles.descriptionContainer}>
+                  {selectedVideo.description}
+                </div>
+              )}
               <div className={styles.contactContainer} id='contact-icons'>
                 <a href='mailto: jimcookemedia@gmail.com'>
                   <FontAwesomeIcon

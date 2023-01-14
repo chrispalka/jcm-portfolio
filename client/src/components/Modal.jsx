@@ -7,7 +7,7 @@ import movie4 from '../assets/images/movie4.jpeg';
 
 const Modal = React.forwardRef(({ video }, ref) => (
   <div ref={ref} className={styles.modalWrapper}>
-    <img className={styles.modalImage} alt='' src={video} />
+    <img className={styles.modalImage} alt='' src={video.still} />
   </div>
 ));
 
