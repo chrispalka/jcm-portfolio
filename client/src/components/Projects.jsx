@@ -1,35 +1,43 @@
 import React from 'react';
 import styles from '../assets/Projects.module.css';
+import movie1 from '../assets/images/movie1.jpeg';
+import movie2 from '../assets/images/movie2.jpeg';
+import movie3 from '../assets/images/movie3.jpeg';
+import movie4 from '../assets/images/movie4.jpeg';
 
 const videos = [
   {
-    name: 'https://via.placeholder.com/450x250',
-    title: 'Movie',
+    still: movie1,
+    title: 'Movie 01',
   },
 
   {
-    name: 'https://via.placeholder.com/450x250',
-    title: 'Movie',
+    still: movie2,
+    title: 'Movie 02',
   },
 
   {
-    name: 'https://via.placeholder.com/450x250',
-    title: 'Movie',
+    still: movie3,
+    title: 'Movie 03',
   },
 
   {
-    name: 'https://via.placeholder.com/450x250',
-    title: 'Movie',
-  }
+    still: movie4,
+    title: 'Movie 04',
+  },
 ];
 
-// const videos = [1, 2, 3, 4]
-
-const Projects = () => (
-  <div className={styles.gridContainer}>
+const Projects = ({ handleVideoClick, showModal }) => (
+  <div className={showModal ? styles.hideProjects : styles.gridContainer}>
     {videos.map((video, i) => (
       <div className={styles.col} key={i}>
-        <img src={video.name} key={i} alt=''></img>
+        <img
+          className={styles.video}
+          src={video.still}
+          key={i}
+          alt=''
+          onClick={() => handleVideoClick(video)}
+        ></img>
       </div>
     ))}
   </div>

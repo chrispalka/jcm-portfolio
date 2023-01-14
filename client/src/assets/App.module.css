@@ -135,4 +135,14 @@
     height: 600px;
     width: 800px;
   }
+
+  .clickedBorderRightDiv {
+    height: 100%;
+    width: 100%;
+  }
+
+  .clickedBorderLeftDiv {
+    height: 100%;
+    width: 100%;
+  }
 }

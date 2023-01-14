@@ -1,7 +1,8 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, lazy, Suspense, useRef } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
 import styles from '../assets/App.module.css';
-import { Layout, Projects, SideNav } from '../layout/index';
+import { Layout, Projects, SideNav, Modal } from '../layout/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
@@ -12,10 +13,13 @@ const axios = require('axios');
 
 const App = () => {
   const [page, setPage] = useState('');
-  const [active, setActive] = useState(false);
+  const modalRef = useRef(null);
+  const [selectedVideo, setSelectedVideo] = useState('');
+  const [showModal, setShowModal] = useDetectOutsideClick(modalRef);
   const [isHover, setIsHover] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isVideoClicked, setIsVideoClicked] = useState(false);
 
   useEffect(() => {
     axios('/isLoggedIn')
@@ -26,6 +30,12 @@ const App = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    if (!showModal) {
+      setIsVideoClicked(false);
+    }
+  }, [showModal]);
   useEffect(() => {
     axios('/isAdmin')
       .then((response) => {
@@ -35,22 +45,11 @@ const App = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-  const linkOnClick = (page) => {
-    setActive(false);
-    setTimeout(() => {
-      setActive(true);
-      setPage(page);
-    }, 800);
-  };
 
-  useEffect(() => {
-    setActive(true);
-    setPage('projects');
-  }, []);
-
-  const handleHover = (e, isHover) => {
+  const handleHover = (e, isHover, stop = false) => {
     if (
       isHover &&
+      !stop &&
       e.target.id !== 'contact-icons' &&
       e.target.tagName !== 'svg' &&
       e.target.tagName !== 'path'
@@ -59,6 +58,15 @@ const App = () => {
     } else {
       setIsHover(false);
     }
+  };
+
+  const handleVideoClick = (cb) => {
+    setSelectedVideo(cb.still);
+    setIsVideoClicked(true);
+    setIsHover(false);
+    setTimeout(() => {
+      setShowModal(true);
+    }, 1500);
   };
   return (
     <>
@@ -76,7 +84,7 @@ const App = () => {
             <Route path='/register/' element={<Register isAdmin={isAdmin} />} />
           </Routes>
           {/* <SideBar page={page} active={active} isAdmin={isAdmin} /> */}
-          <SideNav linkOnClick={linkOnClick} page={page} isAdmin={isAdmin} />
+          <SideNav isAdmin={isAdmin} />
           {/* {isLoggedIn && (
               <div className={styles.logout}>
               <a href='/logout' className='nav-link-custom'>
@@ -87,14 +95,22 @@ const App = () => {
           <div className={styles.contentWrapper}>
             <div
               className={styles.mainContent}
-              onMouseOverCapture={(e) => handleHover(e, true)}
-              onMouseLeave={(e) => handleHover(e, false)}
+              onMouseOverCapture={(e) => handleHover(e, true, showModal)}
+              onMouseLeave={(e) => handleHover(e, false, showModal)}
             >
-              <Projects />
+              {showModal && <Modal ref={modalRef} video={selectedVideo} />}
+              <Projects
+                handleVideoClick={(cb) => handleVideoClick(cb)}
+                showModal={showModal}
+              />
               <div
                 className={
                   isHover
                     ? [styles.borderLeftDiv, styles.activeBorderLeftDiv].join(
+                        ' '
+                      )
+                    : isVideoClicked
+                    ? [styles.borderLeftDiv, styles.clickedBorderLeftDiv].join(
                         ' '
                       )
                     : styles.borderLeftDiv
@@ -106,6 +122,11 @@ const App = () => {
                     ? [styles.borderRightDiv, styles.activeBorderRightDiv].join(
                         ' '
                       )
+                    : isVideoClicked
+                    ? [
+                        styles.borderRightDiv,
+                        styles.clickedBorderRightDiv,
+                      ].join(' ')
                     : styles.borderRightDiv
                 }
               ></div>

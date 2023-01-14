@@ -5,11 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 
-const navLinks = [
-  {
-    name: 'projects',
-  },
-];
+
 const SideNav = ({ linkOnClick, isAdmin }) => {
   const [activeLink, setActiveLink] = useState('projects');
   const [isMobileNavToggled, setMobileNavToggled] = useState(false);
