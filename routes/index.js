@@ -1,23 +1,23 @@
 const { Router } = require('express');
 const passport = require('passport');
 const path = require('path');
-const crypto = require('crypto')
-const { v4: uuidv4 } = require('uuid');
+// const crypto = require('crypto')
+// const { v4: uuidv4 } = require('uuid');
 const dotenv = require('dotenv');
-const bcrypt = require('bcrypt');
-const LocalStrategy = require('passport-local').Strategy;
-const nodemailer = require('nodemailer');
-const {
-  getUserName,
-  getIsAdmin,
-  addUser,
-  updateForgotPassword,
-  updateUserPassword,
-  findRegistrationByToken,
-  generateNewRegistrationToken
-} = require('../models/index.js');
+// const bcrypt = require('bcrypt');
+// const LocalStrategy = require('passport-local').Strategy;
+// const nodemailer = require('nodemailer');
+// const {
+//   getUserName,
+//   getIsAdmin,
+//   addUser,
+//   updateForgotPassword,
+//   updateUserPassword,
+//   findRegistrationByToken,
+//   generateNewRegistrationToken
+// } = require('../models/index.js');
 
-const { isAuthenticated } = require('../modules/auth');
+// const { isAuthenticated } = require('../modules/auth');
 
 dotenv.config({ path: path.join(__dirname, '../.env') });
 
@@ -29,55 +29,55 @@ router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-router.post('/login', passport.authenticate('local', {
-  failureRedirect: '/login',
-  failureFlash: true,
-}), (req, res) => {
-  res.send('Success');
-});
+// router.post('/login', passport.authenticate('local', {
+//   failureRedirect: '/login',
+//   failureFlash: true,
+// }), (req, res) => {
+//   res.send('Success');
+// });
 
-router.get('/currentUser', (req, res) => {
-  res.json(req.user[0].email);
-});
+// router.get('/currentUser', (req, res) => {
+//   res.json(req.user[0].email);
+// });
 
-passport.use(new LocalStrategy(
-  {
-    usernameField: 'email',
-    passReqToCallback: true,
-  },
-  async (req, username, password, done) => {
-    const user = await getUserName(username);
-    if (user) {
-      bcrypt.compare(password, user.dataValues.password, (error, check) => {
-        if (error) {
-          return done();
-        }
-        if (check) {
-          return done(null, [{ email: user.dataValues.email }]);
-        }
-        return done(null, false);
-      });
-    } else {
-      return done(null, false);
-    }
-  },
-));
+// passport.use(new LocalStrategy(
+//   {
+//     usernameField: 'email',
+//     passReqToCallback: true,
+//   },
+//   async (req, username, password, done) => {
+//     const user = await getUserName(username);
+//     if (user) {
+//       bcrypt.compare(password, user.dataValues.password, (error, check) => {
+//         if (error) {
+//           return done();
+//         }
+//         if (check) {
+//           return done(null, [{ email: user.dataValues.email }]);
+//         }
+//         return done(null, false);
+//       });
+//     } else {
+//       return done(null, false);
+//     }
+//   },
+// ));
 
-router.get('/isAdmin', async (req, res) => {
-  if (req.user) {
-    const { email } = req.user[0]
-    try {
-      const isAdmin = await getIsAdmin(email);
-      if (isAdmin) {
-        res.send(true)
-      } else {
-        res.send(false)
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  }
-})
+// router.get('/isAdmin', async (req, res) => {
+//   if (req.user) {
+//     const { email } = req.user[0]
+//     try {
+//       const isAdmin = await getIsAdmin(email);
+//       if (isAdmin) {
+//         res.send(true)
+//       } else {
+//         res.send(false)
+//       }
+//     } catch (err) {
+//       console.log(err)
+//     }
+//   }
+// })
 
 router.post('/register', async (req, res) => {
   const { email, password } = req.body;
@@ -105,9 +105,9 @@ router.get('/logout', async (req, res, next) => {
   });
 });
 
-router.get('/isLoggedIn', async (req, res) => {
-  res.json(isAuthenticated(req));
-});
+// router.get('/isLoggedIn', async (req, res) => {
+//   res.json(isAuthenticated(req));
+// });
 
 router.post('/forgotPassword', async (req, res) => {
   console.log(process.env.EMAIL_ADDRESS, process.env.EMAIL_PASSWORD)

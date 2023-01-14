@@ -5,35 +5,35 @@ const path = require('path');
 const cors = require('cors');
 const passport = require('passport');
 const routes = require('./routes/index');
-const { db } = require('./models/index');
+// const { db } = require('./models/index');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const { SECRET } = process.env
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+// const { SECRET } = process.env
+// const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-const myStore = new SequelizeStore({
-  db: db.sequelize,
-  expiration: 10 * 365 * 24 * 60 * 60,
-});
+// const myStore = new SequelizeStore({
+//   db: db.sequelize,
+//   expiration: 10 * 365 * 24 * 60 * 60,
+// });
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
-app.use(session({
-  secret: SECRET,
-  store: myStore,
-  resave: false,
-  saveUninitialized: true,
-  proxy: true,
-}));
+// app.use(session({
+//   secret: SECRET,
+//   store: myStore,
+//   resave: false,
+//   saveUninitialized: true,
+//   proxy: true,
+// }));
 
-myStore.sync();
+// myStore.sync();
 
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 app.use('/', routes);
 
 app.get('**', (req, res) => {

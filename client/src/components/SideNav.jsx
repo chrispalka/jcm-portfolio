@@ -5,15 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 
-
-const SideNav = ({ linkOnClick, isAdmin }) => {
-  const [activeLink, setActiveLink] = useState('projects');
+const SideNav = () => {
   const [isMobileNavToggled, setMobileNavToggled] = useState(false);
-
-  const handleActiveLink = (activeLink) => {
-    setActiveLink(activeLink);
-    setMobileNavToggled(!isMobileNavToggled);
-  };
 
   const toggleMobileNav = () => {
     setMobileNavToggled(!isMobileNavToggled);
@@ -65,23 +58,6 @@ const SideNav = ({ linkOnClick, isAdmin }) => {
               />
             </a>
           </div>
-          {isAdmin && (
-            <div
-              className={
-                activeLink === 'admin'
-                  ? [styles.linkWrapper, styles.activeLink].join(' ')
-                  : styles.linkWrapper
-              }
-              onClick={() => {
-                linkOnClick('admin');
-                handleActiveLink('admin');
-              }}
-            >
-              <div className={styles.linkContainer}>
-                <span>ADMIN</span>
-              </div>
-            </div>
-          )}
         </>
       </div>
     </>

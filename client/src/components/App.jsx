@@ -1,5 +1,4 @@
 import React, { useState, useEffect, lazy, Suspense, useRef } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDetectOutsideClick } from '../hooks/useDetectOutsideClick';
 import styles from '../assets/App.module.css';
 import { Layout, Projects, SideNav, Modal } from '../layout/index';
@@ -9,10 +8,8 @@ import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 
 const Login = lazy(() => import('./Login'));
 const Register = lazy(() => import('./Register'));
-const axios = require('axios');
 
 const App = () => {
-  const [page, setPage] = useState('');
   const modalRef = useRef(null);
   const [selectedVideo, setSelectedVideo] = useState({
     still: '',
@@ -21,34 +18,35 @@ const App = () => {
   });
   const [showModal, setShowModal] = useDetectOutsideClick(modalRef);
   const [isHover, setIsHover] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isAdmin, setIsAdmin] = useState(false);
   const [isVideoClicked, setIsVideoClicked] = useState(false);
 
-  useEffect(() => {
-    axios('/isLoggedIn')
-      .then((response) => {
-        if (response.data) {
-          setIsLoggedIn(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   axios('/isLoggedIn')
+  //     .then((response) => {
+  //       if (response.data) {
+  //         setIsLoggedIn(true);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   useEffect(() => {
     if (!showModal) {
       setIsVideoClicked(false);
     }
   }, [showModal]);
-  useEffect(() => {
-    axios('/isAdmin')
-      .then((response) => {
-        if (response.data) {
-          setIsAdmin(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+
+  // useEffect(() => {
+  //   axios('/isAdmin')
+  //     .then((response) => {
+  //       if (response.data) {
+  //         setIsAdmin(true);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   const handleHover = (e, isHover, stop = false) => {
     if (
@@ -81,19 +79,8 @@ const App = () => {
     <>
       <Suspense fallback={<div>Loading...</div>}>
         <Layout>
-          <Routes>
-            <Route
-              path='/login'
-              element={isLoggedIn ? <Navigate to='/' replace /> : <Login />}
-            />
-            <Route
-              path='/register/:token'
-              element={<Register isAdmin={isAdmin} />}
-            />
-            <Route path='/register/' element={<Register isAdmin={isAdmin} />} />
-          </Routes>
           {/* <SideBar page={page} active={active} isAdmin={isAdmin} /> */}
-          <SideNav isAdmin={isAdmin} />
+          <SideNav />
           {/* {isLoggedIn && (
               <div className={styles.logout}>
               <a href='/logout' className='nav-link-custom'>
@@ -107,7 +94,13 @@ const App = () => {
               onMouseOverCapture={(e) => handleHover(e, true, isVideoClicked)}
               onMouseLeave={(e) => handleHover(e, false, isVideoClicked)}
             >
-              {showModal && <Modal ref={modalRef} video={selectedVideo} />}
+              {showModal && (
+                <Modal
+                  ref={modalRef}
+                  video={selectedVideo}
+                  isVideoClicked={isVideoClicked}
+                />
+              )}
               <Projects
                 handleVideoClick={(cb) => handleVideoClick(cb)}
                 showModal={showModal}
