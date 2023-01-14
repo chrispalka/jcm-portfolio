@@ -4,7 +4,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 9999;
+  z-index: 9997;
   width: 95%;
 }
 
@@ -18,11 +18,11 @@
 }
 
 .modalImageFadeIn {
-  animation: fadeIn 3s;
+  animation: fadeIn 2s;
 }
 
 .modalImageFadeOut {
-  animation: fadeOut 3s;
+  animation: fadeOut 2s;
 }
 
 @keyframes fadeIn {

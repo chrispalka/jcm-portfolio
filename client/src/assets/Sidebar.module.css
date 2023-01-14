@@ -6,7 +6,7 @@
   width: 90%;
 }
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 45rem) {
   .background {
     width: 100%;
   }
@@ -32,7 +32,7 @@
   justify-content: center;
   top: 50%;
   width: 100%;
-  padding: 50px;
+  padding: 3.125rem;
   align-items: center;
   left: 50%;
   height: 100%;
@@ -58,7 +58,7 @@
   align-items: center;
 }
 
-@media screen and (min-width: 1208px) {
+@media screen and (min-width: 75.5rem) {
   .sidebarInnerWrapper {
     width: 50%;
   }

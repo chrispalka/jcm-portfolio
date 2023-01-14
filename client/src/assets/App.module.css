@@ -16,14 +16,14 @@
 }
 
 .logout {
-  padding: 14px;
+  padding: 0.875rem;
   position: absolute;
   top: 0;
   right: 0;
 }
 
 .logout {
-  padding: 14px;
+  padding: 0.875rem;
   position: absolute;
   top: 0;
   right: 0;
@@ -42,19 +42,29 @@
 
 .contentWrapper {
   width: 100%;
-  display: flex;
+  display: inherit;
   justify-content: center;
   align-items: center;
   top: 0;
   left: 20%;
-  margin: auto;
   height: 100vh;
+}
+
+.contentWrapperModal {
+  display: flex;
 }
 
 .mainContent {
   position: relative;
-  height: 700px;
-  width: 1000px;
+  height: 43.75rem;
+  width: 62.5rem;
+}
+
+.mainContentModal {
+  display: flex;
+  align-items: center;
+  height: 50%;
+  width: 100%;
 }
 
 .borderLeftDiv {
@@ -71,7 +81,7 @@
 
 .contactIcons {
   color: #736d6d;
-  padding: 10px;
+  padding: 0.625rem;
   -webkit-transition: all ease 0.5s;
   -moz-transition: all ease 0.5s;
   transition: all ease 0.5s;
@@ -81,36 +91,58 @@
   color: #ffffff;
   cursor: pointer;
 }
+.descriptionContainer {
+  display: flex;
+  align-items: center;
+  font-family: Gotham, arial;
+  font-style: italic;
+}
+.descriptionFadeIn {
+  padding: 0 1.25rem;
+  animation: fadeIn 2s;
+}
 
-@media screen and (min-width: 720px) {
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media screen and (min-width: 45rem) {
   .contentWrapper {
+    display: flex;
     width: 80%;
-    position: fixed;
+    margin: 0 20%;
+  }
+
+  .mainContent {
+    height: 43.75rem;
+    width: 62.5rem;
   }
 
   .contactContainer {
-    position: absolute;
-    bottom: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    left: -5%;
-    height: 200px;
-    width: 50px;
+    height: 43.75rem;
+    width: 3.125rem;
   }
 
   .descriptionContainer {
-    position: absolute;
-    right: -40%;
-    top: 0%;
     display: flex;
+    margin-left: 1.25rem;
     align-items: center;
-    height: 100%;
-    width: 300px;
+    height: 43.75rem;
+    width: 18.75rem;
     font-family: Gotham, arial;
     font-style: italic;
-    animation: fadeIn 3s;
+  }
+  .descriptionFadeIn {
+    animation: fadeIn 2s;
   }
 
   @keyframes fadeIn {
@@ -123,12 +155,12 @@
   }
   .borderLeftDiv {
     position: absolute;
-    height: 400px;
-    width: 400px;
+    height: 25rem;
+    width: 25rem;
     bottom: 0;
     left: 0;
-    border-bottom: 1px solid #ffffff;
-    border-left: 1px solid #ffffff;
+    border-bottom: 0.0625rem solid #ffffff;
+    border-left: 0.0625rem solid #ffffff;
     pointer-events: none;
     transition: all ease 1s;
     -webkit-transition: all ease 1s;
@@ -137,25 +169,25 @@
 
   .borderRightDiv {
     position: absolute;
-    height: 400px;
-    width: 400px;
+    height: 25rem;
+    width: 25rem;
     top: 0;
     right: 0;
-    border-right: 1px solid #ffffff;
-    border-top: 1px solid #ffffff;
+    border-right: 0.0625rem solid #ffffff;
+    border-top: 0.0625rem solid #ffffff;
     pointer-events: none;
     transition: all ease 1s;
     -webkit-transition: all ease 1s;
     -moz-transition: all ease 1s;
   }
   .activeBorderLeftDiv {
-    height: 600px;
-    width: 800px;
+    height: 37.5rem;
+    width: 50rem;
   }
 
   .activeBorderRightDiv {
-    height: 600px;
-    width: 800px;
+    height: 37.5rem;
+    width: 50rem;
   }
 
   .clickedBorderRightDiv {

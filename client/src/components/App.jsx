@@ -78,87 +78,94 @@ const App = () => {
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
-        <Layout>
-          {/* <SideBar page={page} active={active} isAdmin={isAdmin} /> */}
-          <SideNav />
-          {/* {isLoggedIn && (
+        {/* <SideBar page={page} active={active} isAdmin={isAdmin} /> */}
+        <SideNav />
+        {/* {isLoggedIn && (
               <div className={styles.logout}>
               <a href='/logout' className='nav-link-custom'>
               Logout
               </a>
               </div>
             )} */}
-          <div className={styles.contentWrapper}>
-            <div
-              className={styles.mainContent}
-              onMouseOverCapture={(e) => handleHover(e, true, isVideoClicked)}
-              onMouseLeave={(e) => handleHover(e, false, isVideoClicked)}
-            >
-              {showModal && (
-                <Modal
-                  ref={modalRef}
-                  video={selectedVideo}
-                  isVideoClicked={isVideoClicked}
-                />
-              )}
-              <Projects
-                handleVideoClick={(cb) => handleVideoClick(cb)}
-                showModal={showModal}
+        <div
+          className={
+            !showModal
+              ? [styles.contentWrapper, styles.contentWrapperModal].join(' ')
+              : styles.contentWrapper
+          }
+        >
+          <div className={styles.contactContainer} id='contact-icons'>
+            <a href='mailto: jimcookemedia@gmail.com'>
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                className={styles.contactIcons}
+                size='lg'
               />
-              <div
-                className={
-                  isHover
-                    ? [styles.borderLeftDiv, styles.activeBorderLeftDiv].join(
-                        ' '
-                      )
-                    : isVideoClicked
-                    ? [styles.borderLeftDiv, styles.clickedBorderLeftDiv].join(
-                        ' '
-                      )
-                    : styles.borderLeftDiv
-                }
-              ></div>
-              <div
-                className={
-                  isHover
-                    ? [styles.borderRightDiv, styles.activeBorderRightDiv].join(
-                        ' '
-                      )
-                    : isVideoClicked
-                    ? [
-                        styles.borderRightDiv,
-                        styles.clickedBorderRightDiv,
-                      ].join(' ')
-                    : styles.borderRightDiv
-                }
-              ></div>
-              {showModal && (
-                <div className={styles.descriptionContainer}>
-                  {selectedVideo.description}
-                </div>
-              )}
-              <div className={styles.contactContainer} id='contact-icons'>
-                <a href='mailto: jimcookemedia@gmail.com'>
-                  <FontAwesomeIcon
-                    icon={faEnvelope}
-                    className={styles.contactIcons}
-                    size='lg'
-                  />
-                </a>
-                <a
-                  href='https://www.linkedin.com/in/jim-cooke-2ba22135/'
-                  target='_blank'
-                >
-                  <FontAwesomeIcon
-                    icon={faLinkedinIn}
-                    className={styles.contactIcons}
-                    size='lg'
-                  />
-                </a>
-              </div>
-            </div>
+            </a>
+            <a
+              href='https://www.linkedin.com/in/jim-cooke-2ba22135/'
+              target='_blank'
+            >
+              <FontAwesomeIcon
+                icon={faLinkedinIn}
+                className={styles.contactIcons}
+                size='lg'
+              />
+            </a>
           </div>
-        </Layout>
+          <div
+            className={
+              showModal
+                ? [styles.mainContentModal, styles.mainContent].join(' ')
+                : styles.mainContent
+            }
+            onMouseOverCapture={(e) => handleHover(e, true, isVideoClicked)}
+            onMouseLeave={(e) => handleHover(e, false, isVideoClicked)}
+          >
+            {showModal && (
+              <Modal
+                ref={modalRef}
+                video={selectedVideo}
+                isVideoClicked={isVideoClicked}
+              />
+            )}
+            <Projects
+              handleVideoClick={(cb) => handleVideoClick(cb)}
+              showModal={showModal}
+            />
+            <div
+              className={
+                isHover
+                  ? [styles.borderLeftDiv, styles.activeBorderLeftDiv].join(' ')
+                  : isVideoClicked
+                  ? [styles.borderLeftDiv, styles.clickedBorderLeftDiv].join(
+                      ' '
+                    )
+                  : styles.borderLeftDiv
+              }
+            ></div>
+            <div
+              className={
+                isHover
+                  ? [styles.borderRightDiv, styles.activeBorderRightDiv].join(
+                      ' '
+                    )
+                  : isVideoClicked
+                  ? [styles.borderRightDiv, styles.clickedBorderRightDiv].join(
+                      ' '
+                    )
+                  : styles.borderRightDiv
+              }
+            ></div>
+          </div>
+          <div className={styles.descriptionContainer}>
+            {showModal && (
+              <div className={styles.descriptionFadeIn}>
+                {selectedVideo.description}
+              </div>
+            )}
+          </div>
+        </div>
       </Suspense>
     </>
   );
