@@ -111,7 +111,7 @@
   }
 }
 
-@media screen and (min-width: 45rem) {
+@media screen and (min-width: 80.0625rem) {
   .contentWrapper {
     display: flex;
     width: 80%;
@@ -198,5 +198,26 @@
   .clickedBorderLeftDiv {
     height: 100%;
     width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1280px) {
+  .contentWrapper {
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    margin: 0 20%;
+  }
+
+  .descriptionContainer {
+    width: 100%;
+    align-items: flex-start;
+    padding: 1.25rem;
+  }
+
+  .contactContainer {
+    flex-direction: row;
+    align-items: end;
+    justify-content: end;
   }
 }

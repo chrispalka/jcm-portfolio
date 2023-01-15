@@ -169,7 +169,18 @@
 @media screen and (min-width: 75.5rem) {
   .navContainer {
     height: 100vh;
+    left: 10%;
     width: 10%;
+  }
+  .contactContainer {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1280px) {
+  .navContainer {
+    left: 0%;
+    height: 100vh;
   }
   .contactContainer {
     display: none;
