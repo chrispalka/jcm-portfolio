@@ -12,6 +12,7 @@ const Register = lazy(() => import('./Register'));
 const App = () => {
   const modalRef = useRef(null);
   const [selectedVideo, setSelectedVideo] = useState({
+    movie: '',
     still: '',
     title: '',
     description: '',
@@ -65,6 +66,7 @@ const App = () => {
   const handleVideoClick = (cb) => {
     setSelectedVideo({
       ...selectedVideo,
+      movie: cb.movie,
       still: cb.still,
       title: cb.title,
       description: cb.description,
