@@ -75,7 +75,7 @@ body {
   font-family: Gotham, arial;
   font-weight: 100;
   color: #fff;
-  overflow-y: hidden;
+  overflow-y: auto;
   overflow-x: hidden;
   min-height: 100vh;
   min-height: -webkit-fill-available;
@@ -83,10 +83,10 @@ body {
 div > button {
   font-family: arial !important;
 }
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 0rem;
   background: transparent;
-}
+} */
 
 .layoutWrapper {
   display: flex;

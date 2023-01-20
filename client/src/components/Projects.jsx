@@ -41,12 +41,19 @@ const videos = [
     description:
       'Laboris labore magna reprehenderit incididunt labore voluptate elit dolore fugiat et dolor ut mollit fugiat. Veniam magna aliqua elit ea. Eu duis dolore consequat consequat culpa magna consectetur quis deserunt labore. Pariatur exercitation ipsum do quis cupidatat deserunt cillum non et nostrud. Nisi aliquip quis eu irure ipsum incididunt laboris fugiat enim cupidatat pariatur in. Deserunt commodo enim id exercitation qui ad labore. Nisi eiusmod amet do sint magna proident.',
   },
+  {
+    movie: movie4,
+    still: movie4still,
+    title: 'Movie 04',
+    description:
+      'Laboris labore magna reprehenderit incididunt labore voluptate elit dolore fugiat et dolor ut mollit fugiat. Veniam magna aliqua elit ea. Eu duis dolore consequat consequat culpa magna consectetur quis deserunt labore. Pariatur exercitation ipsum do quis cupidatat deserunt cillum non et nostrud. Nisi aliquip quis eu irure ipsum incididunt laboris fugiat enim cupidatat pariatur in. Deserunt commodo enim id exercitation qui ad labore. Nisi eiusmod amet do sint magna proident.',
+  },
 ];
 
 const Projects = ({ handleVideoClick, showModal }) => (
   <div className={showModal ? styles.hideProjects : styles.gridContainer}>
     {videos.map((video, i) => (
-      <div className={styles.col} key={i}>
+      <div className={[styles[`vid${i + 1}`], styles.vid].join(' ')} key={i}>
         <img
           className={styles.video}
           src={video.still}

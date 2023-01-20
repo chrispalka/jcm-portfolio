@@ -96,7 +96,12 @@ const App = () => {
               : styles.contentWrapper
           }
         >
-          <div className={styles.contactContainer} id='contact-icons'>
+          <div
+            className={
+              showModal ? styles.hideContactIcons : styles.contactContainer
+            }
+            id='contact-icons'
+          >
             <a href='mailto: jimcookemedia@gmail.com'>
               <FontAwesomeIcon
                 icon={faEnvelope}
@@ -139,6 +144,8 @@ const App = () => {
               className={
                 isHover
                   ? [styles.borderLeftDiv, styles.activeBorderLeftDiv].join(' ')
+                  : showModal
+                  ? ''
                   : isVideoClicked
                   ? [styles.borderLeftDiv, styles.clickedBorderLeftDiv].join(
                       ' '
@@ -152,6 +159,8 @@ const App = () => {
                   ? [styles.borderRightDiv, styles.activeBorderRightDiv].join(
                       ' '
                     )
+                  : showModal
+                  ? ''
                   : isVideoClicked
                   ? [styles.borderRightDiv, styles.clickedBorderRightDiv].join(
                       ' '

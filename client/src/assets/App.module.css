@@ -57,7 +57,8 @@
 .mainContent {
   position: relative;
   height: 43.75rem;
-  width: 62.5rem;
+  margin-top: 50px;
+  width: 79.5rem;
 }
 
 .mainContentModal {
@@ -111,6 +112,10 @@
   }
 }
 
+.hideContactIcons {
+  display: none;
+}
+
 @media screen and (min-width: 80.0625rem) {
   .contentWrapper {
     display: flex;
@@ -120,7 +125,7 @@
 
   .mainContent {
     height: 43.75rem;
-    width: 62.5rem;
+    width: 79.5rem;
   }
 
   .contactContainer {
@@ -156,48 +161,52 @@
   .borderLeftDiv {
     position: absolute;
     height: 25rem;
-    width: 25rem;
+    width: 40rem;
     bottom: 0;
     left: 0;
-    border-bottom: 0.0625rem solid #ffffff;
-    border-left: 0.0625rem solid #ffffff;
+    border-bottom: 0.125rem solid #1f1f1f;
+    border-left: 0.125rem solid #1f1f1f;
     pointer-events: none;
-    transition: all ease 1s;
-    -webkit-transition: all ease 1s;
-    -moz-transition: all ease 1s;
+    transition: border-color 2s ease, height 1s ease, width 1s ease;
+    -webkit-transition: border-color 2s ease, height 1s ease width 1s ease;
+    -moz-transition: border-color 2s ease, height 1s ease, width 1s ease;
   }
 
   .borderRightDiv {
     position: absolute;
     height: 25rem;
-    width: 25rem;
+    width: 40rem;
     top: 0;
     right: 0;
-    border-right: 0.0625rem solid #ffffff;
-    border-top: 0.0625rem solid #ffffff;
+    border-right: 0.125rem solid #1f1f1f;
+    border-top: 0.125rem solid #1f1f1f;
     pointer-events: none;
-    transition: all ease 1s;
-    -webkit-transition: all ease 1s;
-    -moz-transition: all ease 1s;
+    transition: border-color 2s ease, height 1s ease, width 1s ease;
+    -webkit-transition: border-color 2s ease, height 1s ease, width 1s ease;
+    -moz-transition: border-color 2s ease, height 1s ease, width 1s ease;
   }
   .activeBorderLeftDiv {
-    height: 37.5rem;
-    width: 50rem;
+    height: 30.5rem;
+    width: 65rem;
+    border-color: #ffffff;
   }
 
   .activeBorderRightDiv {
-    height: 37.5rem;
-    width: 50rem;
+    height: 30.5rem;
+    width: 65rem;
+    border-color: #ffffff;
   }
 
   .clickedBorderRightDiv {
     height: 100%;
     width: 100%;
+    border-color: #ffffff;
   }
 
   .clickedBorderLeftDiv {
     height: 100%;
     width: 100%;
+    border-color: #ffffff;
   }
 }
 
